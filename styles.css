@@ -201,9 +201,9 @@ screen:not([display="true"]) {
 }
 
 @keyframes anim-jump {
-    0% { transform: translateY(0em); }
-    30% { transform: translateY(-0.35em); }
-    0% { transform: translateY(0em); }
+    0% { top: 0em; }
+    30% { top: -0.35em; }
+    0% { top: 0em; }
 }
 screen.anim-jump {
     animation: anim-jump 0.35s ease forwards;
@@ -279,6 +279,7 @@ input:not(:placeholder-shown) + label {
     flex-direction: column;
     align-items: start;
     justify-content: start;
+    flex-shrink: 0;
 }
 #jeu_ordre .col span {
     box-sizing: content-box;
@@ -296,6 +297,10 @@ input:not(:placeholder-shown) + label {
     width: 1em;
     height: 1em;
     text-align: center;
+    transform: scale(0.95);
+    opacity: 1;
+    transition: 0.4s ease;
+    will-change: transform, border, color, opacity;
 }
 #jeu_ordre .nombres span::after {
     content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.447 22.447"><polyline style="stroke-width:3px; stroke:rgb(11, 74, 181); fill:transparent;" points="7.664 3.224 16.484 11.224 7.664 19.224" /></svg>');
@@ -303,13 +308,19 @@ input:not(:placeholder-shown) + label {
     top: 50%;
     left: 50%;
     opacity: 0;
-    transform: translateY(-50%);
+    transform: translateY(-50%) scaleY(0.6);
     width: 1em;
     height: 1em;
     color: var(--accent2);
+    transition: 0.4s ease;
+    will-change: transform, left, opacity;
 }
 
 #jeu_ordre .noms span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 66dvw;
     transform: translateX(0em);
     opacity: 0.5;
     transition: 0.4s ease;
@@ -319,13 +330,37 @@ input:not(:placeholder-shown) + label {
 #jeu_ordre .nombres span.active {
     border-color: var(--accent1);
     color: var(--txt);
+    transform: scale(1.1);
 }
 #jeu_ordre .nombres span.active::after {
     left: 120%;
     opacity: 1;
+    transform: translateY(-50%) scaleY(1);
 }
 #jeu_ordre .noms span.active {
     transform: translateX(1em);
     opacity: 1;
 }
 
+@keyframes fade {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+#jeu_ordre .nombres .in {
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    animation: fade 0.3s reverse forwards;
+}
+#jeu_ordre .nombres .out {
+    animation: fade 0.2s forwards;
+}
+
+#jeu_ordre .nombres {
+    transform: translateY(0);
+}
+#jeu_ordre .nombres.move {
+    transform: translateY(1.8em);
+    transition: transform 0.4s ease;
+}

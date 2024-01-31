@@ -75,7 +75,7 @@ function gameTour({type = "equilibre", nbJoueurs}) {
 
         joueurString = "Joueur "+ GAME.joueurs["j_"+ selectionCount].position;
 
-        SCREENS.selection.querySelector("label[for='joueurNom'").innerHTML = joueurString;
+        SCREENS.selection.querySelector("label[for='joueurNom'").innerText = joueurString;
     }
 
     let selectionCount = 1, joueurString = "";
@@ -87,7 +87,7 @@ function gameTour({type = "equilibre", nbJoueurs}) {
     if (!document.querySelector(".btn#joueur_selection_valider").onclick) {
         document.querySelector(".btn#joueur_selection_valider").onclick = function() {
             // si champ vide, mettre "Joueur X", sinon prendre la valeur
-            GAME.joueurs["j_"+ selectionCount].nom = (INPUT_selectionNom.value.match(/^\s*$/)) ? joueurString : INPUT_selectionNom.value;
+            GAME.joueurs["j_"+ selectionCount].nom = (INPUT_selectionNom.value.match(/^\s*$/)) ? joueurString : INPUT_selectionNom.value.replace(/</g, "/");
 
             joueurSelectionSuivant();
         }
@@ -109,7 +109,7 @@ function gameTour({type = "equilibre", nbJoueurs}) {
     }
 
     function jeu() {
-        // nouveau tour si on a dépassé le nombre de joueurs (donc ils sont tous passés)
+        //- nouveau tour si on a dépassé le nombre de joueurs (donc ils sont tous passés)
         if (GAME.joueurActif > GAME.joueursNb) {
             GAME.tour += 1;
             GAME.joueurActif = 1;
@@ -121,31 +121,56 @@ function gameTour({type = "equilibre", nbJoueurs}) {
                     console.log(j[0], "pos "+j[1].position);
                 });
             }
+
+            // update liste ordre nombre
+            jeuOrdreColNb.innerHTML =
+                "<span class='in'>"+
+                ((parseInt(jeuOrdreColNb.firstElementChild.innerText) <= 1) ? GAME.joueursNb : (parseInt(jeuOrdreColNb.firstElementChild.innerText) - 1))
+                +"</span>" + jeuOrdreColNb.innerHTML;
+
+            jeuOrdreColNb.lastElementChild.classList.add("out");
+            jeuOrdreColNb.classList.add("move");
+
+            setTimeout(() => {
+                jeuOrdreColNb.lastElementChild.remove();
+                jeuOrdreColNb.firstElementChild.classList.remove("in");
+                jeuOrdreColNb.classList.remove("move");
+            }, 400);
         }
-        SCREENS.jeu.querySelector("#jeu_tour").innerHTML = "Tour n°"+ GAME.tour;
+        SCREENS.jeu.querySelector("#jeu_tour").innerText = "Tour n°"+ GAME.tour;
 
         console.log("j",GAME.joueurActif);
-        // afficher le joueur dont la position est la même que "joueurActif"
+        //- afficher le joueur dont la position est la même que "joueurActif"
         Object.entries(GAME.joueurs).forEach((j) => {
             if (j[1].position == GAME.joueurActif) {
-                SCREENS.jeu.querySelector("span#joueur_actif").innerHTML = j[1].nom;
+                SCREENS.jeu.querySelector("span#joueur_actif").innerText = j[1].nom;
 
                 jeuOrdreColNb.querySelectorAll("span").forEach(span => { span.classList.remove("active"); });
                 jeuOrdreColNoms.querySelectorAll("span").forEach(span => { span.classList.remove("active"); });
-                jeuOrdreColNb.querySelectorAll("span:nth-child("+ j[1].positionInit +")").forEach(span => { span.classList.add("active"); });
-                jeuOrdreColNoms.querySelectorAll("span:nth-child("+ j[1].positionInit +")").forEach(span => { span.classList.add("active"); });
+                setTimeout(() => {
+                    jeuOrdreColNb.querySelectorAll("span:nth-child("+ j[1].positionInit +")").forEach(span => { span.classList.add("active"); });
+                    jeuOrdreColNoms.querySelectorAll("span:nth-child("+ j[1].positionInit +")").forEach(span => { span.classList.add("active"); });
+                }, 200);
             }
         })
+
+        setTimeout(() => { jeu_offset(); }, 200+50);
     }
 
-    if (!SCREENS.jeu.querySelector(".btn#jouer").onclick) {
-        SCREENS.jeu.querySelector(".btn#jouer").onclick = function() {
-            //- nouveau joueur
-            GAME.joueurActif += 1;
+    function jeu_offset() {
+        if (!SCREENS.jeu.querySelector(".btn#jouer").onclick) {
+            SCREENS.jeu.querySelector(".btn#jouer").onclick = function() {
+                this.onclick=null;
 
-            jeu();
+                //- nouveau joueur
+                GAME.joueurActif += 1;
+
+                jeu();
+            }
         }
     }
+    jeu_offset();
+
 }
 
 //-- SCREEN START
