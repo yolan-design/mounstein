@@ -202,11 +202,11 @@ screen:not([display="true"]) {
 
 @keyframes anim-jump {
     0% { transform: translateY(0em); }
-    30% { transform: translateY(-0.5em); }
+    30% { transform: translateY(-0.35em); }
     0% { transform: translateY(0em); }
 }
 screen.anim-jump {
-    animation: anim-jump 0.4s ease forwards;
+    animation: anim-jump 0.35s ease forwards;
 }
 
 .user-input-text {

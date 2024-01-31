@@ -93,28 +93,28 @@ function gameTour({type = "equilibre", nbJoueurs}) {
 
     //-- jeu
     function jeu() {
-        // afficher le joueur dont la position est la même que "joueurActif"
-        Object.entries(GAME.joueurs).forEach((j) => {
-            if (j[1].position == GAME.joueurActif) {
-                SCREENS.jeu.querySelector("span#joueur_actif").innerHTML = j[1].nom;
-            }
-        })
-
         // nouveau tour si on a dépassé le nombre de joueurs (donc ils sont tous passés)
         if (GAME.joueurActif > GAME.joueursNb) {
             GAME.tour += 1;
             GAME.joueurActif = 1;
 
-            if (GAME.tourType == "equilibre") { // équilibré, faire tourner le "premier" joueur
+            if (true || GAME.tourType == "equilibre") { // équilibré, faire tourner le "premier" joueur / pour l'instant le seul mode
                 console.log("------ tour "+ GAME.tour);
                 Object.entries(GAME.joueurs).forEach((j) => {
                     j[1].position = (j[1].position <= 1) ? GAME.joueursNb : j[1].position - 1;
                     console.log(j[0], "pos "+j[1].position);
                 });
             }
-
-            SCREENS.jeu.querySelector("span#tour").innerHTML = "Tour n°"+ GAME.tour;
         }
+        SCREENS.jeu.querySelector("span#tour").innerHTML = "Tour n°"+ GAME.tour;
+
+        console.log("j",GAME.joueurActif);
+        // afficher le joueur dont la position est la même que "joueurActif"
+        Object.entries(GAME.joueurs).forEach((j) => {
+            if (j[1].position == GAME.joueurActif) {
+                SCREENS.jeu.querySelector("span#joueur_actif").innerHTML = j[1].nom;
+            }
+        })
     }
 
     if (!SCREENS.jeu.querySelector(".btn#jouer").onclick) {
