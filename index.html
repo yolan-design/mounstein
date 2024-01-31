@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr" translate="no" class="notranslate">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate" />
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/scripts.js" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <title>Workshop Jeu Montagne</title>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div id="jeu_reload" class="btn-nav">
+                <svg viewBox="0 0 16 16"><g><line x1="0" x2="16" y2="16" /><line x1="16" y1="0" y2="16" /></g></svg>
+            </div>
+            <div id="jeu_rules" class="btn-nav">
+                <svg viewBox="0 0 20 16">
+                    <g>
+                        <polyline points="17.066 2.926 20 2.926 20 16 10 16 10 3.654 10 16 0 16 0 2.926 2.934 2.926" />
+                        <path d="M10,15.634c2.038-1.999,5.345-2.781,7.066-3.045V0c-1.721.264-5.028,1.655-7.066,3.654C7.962,1.655,4.655.264,2.934,0v12.589c1.721.264,5.028,1.046,7.066,3.045Z" />
+                    </g>
+                </svg>
+            </div>
+        </nav>
+        <div id="logo">
+            <img src="/src/logo.svg" alt="Mounstein">
+        </div>
+    </header>
+
+
+    <main>
+        <screen id="start" display="true">
+            <h2>Combien de joueurs ?</h2>
+            <input type="number" id="joueursNb" value="2" min="2" max="99" />
+
+            <div>
+                <button id="jeu_start" class="btn">Commencer</button>
+            </div>
+        </screen>
+
+
+        <screen id="selection" display="">
+            <h2>Choisi ton nom !</h2>
+            <div class="rel">
+                <div class="user-input-text">
+                    <input type="text" id="joueurNom" name="name" required minlength="0" maxlength="16" placeholder="" />
+                    <label for="joueurNom"></label>
+                </div>
+                <div>
+                    <button id="joueur_selection_valider" class="btn">Valider</button>
+                </div>
+            </div>
+            <span id=""></span>
+        </screen>
+
+
+        <screen id="jeu" display="">
+            <h2>Jeu</h2>
+            <span id="tour"></span>
+            <div id="jeu_joueur_actif">
+                <span>C'est à </span>
+                <span id="joueur_actif"></span>
+                <span> de jouer</span>
+            </div>
+            <button id="jouer" class="btn">Jouer</button>
+        </screen>
+    </main>
+
+</body>
+</html>

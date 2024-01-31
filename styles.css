@@ -1,0 +1,241 @@
+:root {
+    --bg1: #6880ea;
+    --bg2: #a7baff;
+    --bg3: #d7e0ff;
+    --accent1: #1f6ff9;
+    --accent2: #0b4ab5;
+    --txt: #000000;
+}
+html {
+    font-size: 12px;
+}
+body {
+    color: var(--txt);
+    background-color: var(--bg1);
+}
+body, button, input {
+    font-family: "Rowdies", sans-serif;
+    letter-spacing: -0.25px;
+    font-weight: 300;
+    line-height: 1;
+    font-size: 1em;
+}
+
+
+/* RESETS */
+* {
+    min-width: 0px;
+    box-sizing: border-box;
+}
+
+body,
+h1, h2, h3, h4, h5,
+span, p, ul, li {
+    margin: 0;
+    line-height: 1;
+}
+h1, h2, h3, h4, h5 {
+    margin: 0.5em 0;
+    line-height: 0.9;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+}
+h1, h2 {
+    text-align: center;
+}
+h1 {
+    font-size: 1.75em;
+}
+h2 {
+    font-size: 1.25em;
+}
+
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.rel {
+    position: relative;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+header, nav {
+    padding: 2.5rem 1.75rem 1rem;
+    user-select: none;
+    transition: padding 0.5s ease;
+}
+header[size="large"] {
+    padding-top: 5rem;
+}
+
+header #logo {
+    position: relative;
+    top: -2rem;
+    left: 45%;
+    transform: translateX(-50%);
+    width: 16rem;
+    transition: 0.5s ease;
+    will-change: width, height, top, left;
+    pointer-events: none;
+}
+header[size="small"] #logo {
+    width: 10rem;
+    top: -1rem;
+    left: 50%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    padding-top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.4s;
+}
+header[jeu="off"] .btn-nav#jeu_reload {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.btn-nav {
+    cursor: pointer;
+    padding: 0.5rem;
+    box-sizing: content-box;
+    opacity: 1;
+    transition: opacity 0.4s;
+}
+.btn-nav svg {
+    font-size: 1.75rem;
+    width: 1em;
+    height: 1em;
+
+    fill: none;
+    stroke: var(--bg3);
+    stroke-width: 3px;
+    stroke-linecap: round;
+}
+.btn-nav#jeu_rules svg {
+    overflow: visible;
+    width: 1.75em;
+    height: 1.25em;
+    stroke-width: 2px;
+    stroke-width: 1.5px;
+}
+
+
+
+/* CONTENT */
+main {
+    position: relative;
+    width: 100%;
+    margin: 1.5rem 0;
+    font-size: 1.75em;
+}
+screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 3rem);
+    display: block;
+    margin: 1rem 1.5rem;
+    padding: 3rem;
+    background-color: var(--bg2);
+    border-radius: 24px;
+    transform: translateY(0);
+    transition: 0.7s cubic-bezier(0.3, 0.5, 0, 1), opacity 0.3s ease;
+    transition-delay: 0.35s;
+}
+screen:not([display="true"]) {
+    transition-delay: 0s;
+    pointer-events: none;
+    user-select: none;
+    transform: translateY(2.5rem);
+    opacity: 0;
+}
+
+@keyframes anim-jump {
+    0% { transform: translateY(0em); }
+    30% { transform: translateY(-0.5em); }
+    0% { transform: translateY(0em); }
+}
+screen.anim-jump {
+    animation: anim-jump 0.4s ease forwards;
+}
+
+
+.btn {
+    background-color: var(--bg3);
+    color: var(--accent1);
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    font-size: 1.75rem;
+    padding: 1em;
+    margin: 2em 0 1em;
+    width: 100%;
+    border: 0;
+    border-radius: 16px;
+    outline: 0;
+    cursor: pointer;
+    filter: brightness(1);
+    transform: scale(1);
+    transition: 0.25s;
+    will-change: filter, transform;
+    -webkit-tap-highlight-color: transparent;
+}
+.btn:hover {
+    filter: brightness(1.2);
+}
+.btn:active {
+    filter: brightness(0.95);
+    transform: scale(0.95);
+    transition: filter 0.05s;
+}
+
+
+.user-input-text {
+    position: relative;
+}
+
+input {
+    background-color: var(--bg3);
+    padding: 0.75em;
+    margin: 1.75rem 0;
+    border: 0;
+    border-radius: 16px;
+    width: 100%;
+    text-align: center;
+}
+
+input + label {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 0.2s;
+    pointer-events: none;
+    user-select: none;
+    opacity: 1;
+}
+input:focus + label,
+input:not(:placeholder-shown) + label {
+    position: absolute;
+    top: 0.5rem;
+    transform: translateY(-50%) scale(0.8);
+    opacity: 0.75;
+}
