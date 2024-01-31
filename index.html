@@ -53,7 +53,7 @@
             <h2>Choisi ton nom !</h2>
             <div class="rel">
                 <div class="user-input-text">
-                    <input type="text" id="joueurNom" name="name" required minlength="0" maxlength="16" placeholder="" />
+                    <input type="text" id="joueurNom" name="name" required minlength="0" maxlength="14" placeholder="" />
                     <label for="joueurNom"></label>
                 </div>
                 <div>
@@ -65,12 +65,15 @@
 
 
         <screen id="jeu" display="">
-            <h2>Jeu</h2>
-            <span id="tour"></span>
+            <h2 id="jeu_tour"></h2>
             <div id="jeu_joueur_actif">
                 <span>C'est à </span>
                 <span id="joueur_actif"></span>
-                <span> de jouer</span>
+                <span> de jouer !</span>
+            </div>
+            <div id="jeu_ordre">
+                <div class="col nombres"></div>
+                <div class="col noms"></div>
             </div>
             <button id="jouer" class="btn">Jouer</button>
         </screen>

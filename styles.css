@@ -252,3 +252,80 @@ input:not(:placeholder-shown) + label {
     text-align: center;
     display: block;
 }
+
+
+
+/* JEU */
+#jeu_joueur_actif {
+    text-align: center;
+}
+#jeu_joueur_actif #joueur_actif {
+    font-weight: 400;
+    color: var(--accent2);
+}
+
+
+#jeu_ordre {
+    position: relative;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    font-size: 1.25em;
+    margin-top: 3rem;
+}
+
+#jeu_ordre .col {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+}
+#jeu_ordre .col span {
+    box-sizing: content-box;
+    display: block;
+    margin: 0.15em;
+    padding: 0.15em;
+    border: 3px solid transparent;
+    border-radius: 999em;
+}
+
+#jeu_ordre .nombres span {
+    position: relative;
+    color: var(--accent2);
+    font-weight: 400;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+}
+#jeu_ordre .nombres span::after {
+    content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.447 22.447"><polyline style="stroke-width:3px; stroke:rgb(11, 74, 181); fill:transparent;" points="7.664 3.224 16.484 11.224 7.664 19.224" /></svg>');
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: translateY(-50%);
+    width: 1em;
+    height: 1em;
+    color: var(--accent2);
+}
+
+#jeu_ordre .noms span {
+    transform: translateX(0em);
+    opacity: 0.5;
+    transition: 0.4s ease;
+    will-change: transform, color, opacity;
+}
+
+#jeu_ordre .nombres span.active {
+    border-color: var(--accent1);
+    color: var(--txt);
+}
+#jeu_ordre .nombres span.active::after {
+    left: 120%;
+    opacity: 1;
+}
+#jeu_ordre .noms span.active {
+    transform: translateX(1em);
+    opacity: 1;
+}
+

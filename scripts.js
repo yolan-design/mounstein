@@ -1,5 +1,4 @@
 
-let header = document.querySelector("header");
 
 const SCREENS = {
     start : document.querySelector("screen#start"),
@@ -23,6 +22,10 @@ function updateAnimClass(el, c) {
     el.classList.remove(c);
     setTimeout(() => { el.classList.add(c); }, 50);
 }
+
+let header = document.querySelector("header"),
+    jeuOrdreColNb = SCREENS.jeu.querySelector("#jeu_ordre .col.nombres"),
+    jeuOrdreColNoms = SCREENS.jeu.querySelector("#jeu_ordre .col.noms");
 
 
 // ordre équilibré en faisant tourner le premier joueur de chaque tour
@@ -55,7 +58,7 @@ function gameTour({type = "equilibre", nbJoueurs}) {
         if (selectionCount > GAME.joueursNb) {
             selectionCount = 1;
             screenChange({show : SCREENS.jeu});
-            jeu();
+            jeuCreate();
             console.log(GAME);
         } else {
             updateAnimClass(SCREENS.selection, "anim-jump")
@@ -92,6 +95,19 @@ function gameTour({type = "equilibre", nbJoueurs}) {
 
 
     //-- jeu
+    function jeuCreate() {
+        let colNb = "", colNoms = "";
+
+        for (let j = 1; j <= GAME.joueursNb; j++) {
+            colNb += "<span>"+ j +"</span>";
+            colNoms += "<span>"+ GAME.joueurs["j_"+ j].nom +"</span>";
+        }
+        jeuOrdreColNb.innerHTML = colNb;
+        jeuOrdreColNoms.innerHTML = colNoms;
+
+        jeu();
+    }
+
     function jeu() {
         // nouveau tour si on a dépassé le nombre de joueurs (donc ils sont tous passés)
         if (GAME.joueurActif > GAME.joueursNb) {
@@ -106,13 +122,18 @@ function gameTour({type = "equilibre", nbJoueurs}) {
                 });
             }
         }
-        SCREENS.jeu.querySelector("span#tour").innerHTML = "Tour n°"+ GAME.tour;
+        SCREENS.jeu.querySelector("#jeu_tour").innerHTML = "Tour n°"+ GAME.tour;
 
         console.log("j",GAME.joueurActif);
         // afficher le joueur dont la position est la même que "joueurActif"
         Object.entries(GAME.joueurs).forEach((j) => {
             if (j[1].position == GAME.joueurActif) {
                 SCREENS.jeu.querySelector("span#joueur_actif").innerHTML = j[1].nom;
+
+                jeuOrdreColNb.querySelectorAll("span").forEach(span => { span.classList.remove("active"); });
+                jeuOrdreColNoms.querySelectorAll("span").forEach(span => { span.classList.remove("active"); });
+                jeuOrdreColNb.querySelectorAll("span:nth-child("+ j[1].positionInit +")").forEach(span => { span.classList.add("active"); });
+                jeuOrdreColNoms.querySelectorAll("span:nth-child("+ j[1].positionInit +")").forEach(span => { span.classList.add("active"); });
             }
         })
     }
