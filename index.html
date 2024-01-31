@@ -39,7 +39,9 @@
     <main>
         <screen id="start" display="true">
             <h2>Combien de joueurs ?</h2>
-            <input type="number" id="joueursNb" value="2" min="2" max="99" />
+
+            <label id="joueursNb"><output id="joueursNb-valeur"></output></label>
+            <input type="range" id="joueursNb-slider" min="2" max="4" step="1" />
 
             <div>
                 <button id="jeu_start" class="btn">Commencer</button>

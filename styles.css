@@ -1,7 +1,7 @@
 :root {
     --bg1: #6880ea;
     --bg2: #a7baff;
-    --bg3: #d7e0ff;
+    --bg3: #e0e7ff;
     --accent1: #1f6ff9;
     --accent2: #0b4ab5;
     --txt: #000000;
@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5 {
     font-weight: 400;
     letter-spacing: -0.5px;
 }
-h1, h2 {
+h1, h2, h3 {
     text-align: center;
 }
 h1 {
@@ -136,6 +136,39 @@ header[jeu="off"] .btn-nav#jeu_reload {
     stroke-width: 1.5px;
 }
 
+.btn {
+    background-color: var(--bg3);
+    color: var(--accent1);
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    font-size: 1.75rem;
+    padding: 1em;
+    margin: 2em 0 1em;
+    width: 100%;
+    border: 0;
+    border-radius: 16px;
+    outline: 0;
+    cursor: pointer;
+    will-change: filter, transform;
+    -webkit-tap-highlight-color: transparent;
+}
+
+*[class*="btn"] {
+    filter: brightness(1);
+    transform: scale(1);
+    transition: 0.25s;
+}
+*[class*="btn"]:active {
+    transform: scale(0.95);
+    transition: 0.035s;
+}
+.btn:hover {
+    filter: brightness(1.15);
+}
+.btn:active {
+    filter: brightness(0.95);
+}
+
 
 
 /* CONTENT */
@@ -176,36 +209,6 @@ screen.anim-jump {
     animation: anim-jump 0.4s ease forwards;
 }
 
-
-.btn {
-    background-color: var(--bg3);
-    color: var(--accent1);
-    font-weight: 400;
-    letter-spacing: -0.5px;
-    font-size: 1.75rem;
-    padding: 1em;
-    margin: 2em 0 1em;
-    width: 100%;
-    border: 0;
-    border-radius: 16px;
-    outline: 0;
-    cursor: pointer;
-    filter: brightness(1);
-    transform: scale(1);
-    transition: 0.25s;
-    will-change: filter, transform;
-    -webkit-tap-highlight-color: transparent;
-}
-.btn:hover {
-    filter: brightness(1.2);
-}
-.btn:active {
-    filter: brightness(0.95);
-    transform: scale(0.95);
-    transition: filter 0.05s;
-}
-
-
 .user-input-text {
     position: relative;
 }
@@ -218,6 +221,9 @@ input {
     border-radius: 16px;
     width: 100%;
     text-align: center;
+}
+input[type="range"] {
+    margin: 0;
 }
 
 input + label {
@@ -238,4 +244,11 @@ input:not(:placeholder-shown) + label {
     top: 0.5rem;
     transform: translateY(-50%) scale(0.8);
     opacity: 0.75;
+}
+
+#joueursNb {
+    margin-top: 4rem;
+    font-size: 1.5em;
+    text-align: center;
+    display: block;
 }

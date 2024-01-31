@@ -26,7 +26,7 @@ function updateAnimClass(el, c) {
 
 
 // ordre équilibré en faisant tourner le premier joueur de chaque tour
-function gameTour({type = "classic", nbJoueurs}) {
+function gameTour({type = "equilibre", nbJoueurs}) {
     //-- initialisation
     let GAME = {
         tourType : type,
@@ -35,13 +35,14 @@ function gameTour({type = "classic", nbJoueurs}) {
         joueursNb : nbJoueurs,
         joueurs : {},
     };
+    // TODO conserver les noms
 
     // création des joueurs
     for (let j = 1; j < GAME.joueursNb + 1; j++) {
         GAME.joueurs["j_"+j] = {};
         GAME.joueurs["j_"+j].positionInit = j;
         GAME.joueurs["j_"+j].position = j;
-        GAME.joueurs["j_"+j].actif = false;
+        // GAME.joueurs["j_"+j].actif = false;
     }
     console.log(GAME);
 
@@ -52,6 +53,7 @@ function gameTour({type = "classic", nbJoueurs}) {
     function joueurSelectionSuivant() {
         selectionCount += 1;
         if (selectionCount > GAME.joueursNb) {
+            selectionCount = 1;
             screenChange({show : SCREENS.jeu});
             jeu();
             console.log(GAME);
@@ -79,12 +81,14 @@ function gameTour({type = "classic", nbJoueurs}) {
     // run
     joueurSelection();
 
-    document.querySelector(".btn#joueur_selection_valider").addEventListener("click", () => {
-        // si champ vide, mettre "Joueur X", sinon prendre la valeur
-        GAME.joueurs["j_"+ selectionCount].nom = (INPUT_selectionNom.value.match(/^\s*$/)) ? joueurString : INPUT_selectionNom.value;
+    if (!document.querySelector(".btn#joueur_selection_valider").onclick) {
+        document.querySelector(".btn#joueur_selection_valider").onclick = function() {
+            // si champ vide, mettre "Joueur X", sinon prendre la valeur
+            GAME.joueurs["j_"+ selectionCount].nom = (INPUT_selectionNom.value.match(/^\s*$/)) ? joueurString : INPUT_selectionNom.value;
 
-        joueurSelectionSuivant();
-    })
+            joueurSelectionSuivant();
+        }
+    }
 
 
     //-- jeu
@@ -101,7 +105,7 @@ function gameTour({type = "classic", nbJoueurs}) {
             GAME.tour += 1;
             GAME.joueurActif = 1;
 
-            if (GAME.tourType == "classic") { // équilibré, faire tourner le "premier" joueur
+            if (GAME.tourType == "equilibre") { // équilibré, faire tourner le "premier" joueur
                 console.log("------ tour "+ GAME.tour);
                 Object.entries(GAME.joueurs).forEach((j) => {
                     j[1].position = (j[1].position <= 1) ? GAME.joueursNb : j[1].position - 1;
@@ -111,25 +115,32 @@ function gameTour({type = "classic", nbJoueurs}) {
 
             SCREENS.jeu.querySelector("span#tour").innerHTML = "Tour n°"+ GAME.tour;
         }
-
-
-
     }
 
-    SCREENS.jeu.querySelector(".btn#jouer").addEventListener("click", () => {
-        //- nouveau joueur
-        GAME.joueurActif += 1;
+    if (!SCREENS.jeu.querySelector(".btn#jouer").onclick) {
+        SCREENS.jeu.querySelector(".btn#jouer").onclick = function() {
+            //- nouveau joueur
+            GAME.joueurActif += 1;
 
-        jeu();
-    })
+            jeu();
+        }
+    }
 }
+
+//-- SCREEN START
+const jNbValue = document.querySelector("#joueursNb-valeur");
+const jNbInput = document.querySelector("#joueursNb-slider");
+jNbValue.textContent = jNbInput.value;
+jNbInput.addEventListener("input", (event) => {
+    jNbValue.textContent = event.target.value;
+});
 
 
 //-- FLOW
 screenChange({show : SCREENS.start});
 
 document.querySelector(".btn#jeu_start").addEventListener("click", () => {
-    gameTour({nbJoueurs : parseInt(document.querySelector("input#joueursNb").value)}) //TODO on peut quand même écrire hors des valeurs min et max (1 ou +100)
+    gameTour({nbJoueurs : parseInt(jNbInput.value)}) //TODO on peut quand même écrire hors des valeurs min et max (1 ou +100)
 })
 
 header.querySelector(".btn-nav#jeu_reload").addEventListener("click", () => {
