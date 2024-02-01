@@ -70,9 +70,7 @@ function gameTour({type = "equilibre", nbJoueurs}) {
         } else {
             updateAnimClass(SCREENS.selection, "anim-jump")
 
-            setTimeout(() => {
-                joueurSelectionUpdate();
-            }, 150); // TODO retirer
+            joueurSelectionUpdate();
         }
     }
     function joueurSelectionUpdate() {
@@ -153,7 +151,7 @@ function gameTour({type = "equilibre", nbJoueurs}) {
                 jeuOrdreColNb.classList.remove("move");
             }, 400);
         }
-        SCREENS.jeu.querySelector("#jeu_tour").innerText = "Tour n°"+ GAME.tour;
+        SCREENS.jeu.querySelector("#jeu_tour").innerText = "Tour n° "+ GAME.tour;
 
         console.log("j",GAME.joueurActif);
         //- afficher le joueur dont la position est la même que "joueurActif"

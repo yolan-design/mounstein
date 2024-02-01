@@ -306,13 +306,13 @@ input:not(:placeholder-shown) + label {
     content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.447 22.447"><polyline style="stroke-width:3px; stroke:rgb(11, 74, 181); fill:transparent;" points="7.664 3.224 16.484 11.224 7.664 19.224" /></svg>');
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 70%;
     opacity: 0;
     transform: translateY(-50%) scaleY(0.6);
     width: 1em;
     height: 1em;
     color: var(--accent2);
-    transition: 0.4s ease;
+    transition: 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
     will-change: transform, left, opacity;
 }
 
