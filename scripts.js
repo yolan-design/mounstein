@@ -1,4 +1,9 @@
 
+//-- initialisation
+let GAME = {
+    joueursNoms : [],
+    joueurs : {},
+};
 
 const SCREENS = {
     start : document.querySelector("screen#start"),
@@ -28,19 +33,16 @@ let header = document.querySelector("header"),
     jeuOrdreColNoms = SCREENS.jeu.querySelector("#jeu_ordre .col.noms");
 
 
-// ordre équilibré en faisant tourner le premier joueur de chaque tour
+//-- JEU
 function gameTour({type = "equilibre", nbJoueurs}) {
-    //-- initialisation
-    let GAME = {
-        tourType : type,
-        tour : 1,
-        joueurActif : 1,
-        joueursNb : nbJoueurs,
-        joueurs : {},
-    };
-    // TODO conserver les noms
+    //-- reset
+    GAME.tour = 1;
+    GAME.tourType = type;
+    GAME.joueursNb = nbJoueurs;
+    GAME.joueurActif = 1;
 
-    // création des joueurs
+
+    //-- création des joueurs
     for (let j = 1; j < GAME.joueursNb + 1; j++) {
         GAME.joueurs["j_"+j] = {};
         GAME.joueurs["j_"+j].positionInit = j;
@@ -57,38 +59,52 @@ function gameTour({type = "equilibre", nbJoueurs}) {
         selectionCount += 1;
         if (selectionCount > GAME.joueursNb) {
             selectionCount = 1;
+
             screenChange({show : SCREENS.jeu});
             jeuCreate();
-            console.log(GAME);
+
+            // stocker les noms
+            GAME.joueursNoms = [];
+            Object.entries(GAME.joueurs).forEach((j) => { GAME.joueursNoms.push(j[1].nom); });
+            console.log(GAME.joueursNoms);
         } else {
             updateAnimClass(SCREENS.selection, "anim-jump")
 
             setTimeout(() => {
-                joueurSelection();
-            }, 150);
+                joueurSelectionUpdate();
+            }, 150); // TODO retirer
         }
     }
-    function joueurSelection() {
-        console.log(selectionCount);
+    function joueurSelectionUpdate() {
+        console.log("selectionCount", selectionCount);
 
-        INPUT_selectionNom.value = "";
+        joueurStringUpdate();
+        SCREENS.selection.querySelector("label[for='joueurNom'").innerText = joueurString; // label UI
 
+         // valeur champ, conserver nom joueur si existe
+        INPUT_selectionNom.value = ((GAME.joueursNoms.length > 0)
+                                    ? ((GAME.joueursNoms[selectionCount - 1] != joueurString)
+                                        ? GAME.joueursNoms[selectionCount - 1]
+                                        : "")
+                                    : "");
+    }
+
+    function joueurStringUpdate() { // string numéro de joueur
         joueurString = "Joueur "+ GAME.joueurs["j_"+ selectionCount].position;
-
-        SCREENS.selection.querySelector("label[for='joueurNom'").innerText = joueurString;
     }
 
     let selectionCount = 1, joueurString = "";
     const INPUT_selectionNom = SCREENS.selection.querySelector("input#joueurNom");
 
     // run
-    joueurSelection();
+    if (GAME.joueursNb != GAME.joueursNoms.length) { GAME.joueursNoms = []; } // réutiliser les noms pour la prochaine partie s'il y a le même nb de joueurs
+    joueurSelectionUpdate();
 
     if (!document.querySelector(".btn#joueur_selection_valider").onclick) {
         document.querySelector(".btn#joueur_selection_valider").onclick = function() {
+            joueurStringUpdate();
             // si champ vide, mettre "Joueur X", sinon prendre la valeur
             GAME.joueurs["j_"+ selectionCount].nom = (INPUT_selectionNom.value.match(/^\s*$/)) ? joueurString : INPUT_selectionNom.value.replace(/</g, "/");
-
             joueurSelectionSuivant();
         }
     }
