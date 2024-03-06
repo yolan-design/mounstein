@@ -28,6 +28,10 @@ function updateAnimClass(el, c) {
     setTimeout(() => { el.classList.add(c); }, 50);
 }
 
+function randomIntFromInterval(min, max) { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
 let header = document.querySelector("header"),
     jeuOrdreColNb = SCREENS.jeu.querySelector("#jeu_ordre .col.nombres"),
     jeuOrdreColNoms = SCREENS.jeu.querySelector("#jeu_ordre .col.noms");
@@ -47,6 +51,7 @@ function gameTour({type = "equilibre", nbJoueurs}) {
         GAME.joueurs["j_"+j] = {};
         GAME.joueurs["j_"+j].positionInit = j;
         GAME.joueurs["j_"+j].position = j;
+        GAME.joueurs["j_"+j].random = randomIntFromInterval(2, 9) * ((j % 2 == 0) ? 1 : -1);
         // GAME.joueurs["j_"+j].actif = false;
     }
     console.log(GAME);
@@ -77,7 +82,8 @@ function gameTour({type = "equilibre", nbJoueurs}) {
         console.log("selectionCount", selectionCount);
 
         joueurStringUpdate();
-        SCREENS.selection.querySelector("label[for='joueurNom'").innerText = joueurString; // label UI
+        LABEL_selectionNom.innerText = joueurString; // label UI
+        LABEL_selectionNom.style.setProperty('--j-rotate', GAME.joueurs["j_"+ selectionCount].random +"deg");
 
          // valeur champ, conserver nom joueur si existe
         INPUT_selectionNom.value = ((GAME.joueursNoms.length > 0)
@@ -92,7 +98,8 @@ function gameTour({type = "equilibre", nbJoueurs}) {
     }
 
     let selectionCount = 1, joueurString = "";
-    const INPUT_selectionNom = SCREENS.selection.querySelector("input#joueurNom");
+    const INPUT_selectionNom = SCREENS.selection.querySelector("input#joueurNom"),
+          LABEL_selectionNom = SCREENS.selection.querySelector("label[for='joueurNom'");
 
     // run
     if (GAME.joueursNb != GAME.joueursNoms.length) { GAME.joueursNoms = []; } // réutiliser les noms pour la prochaine partie s'il y a le même nb de joueurs

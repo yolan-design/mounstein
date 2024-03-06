@@ -268,8 +268,8 @@ input + label {
     width: 100%;
     text-align: center;
     top: 50%;
-    transform: rotateZ(-2.5deg) translateY(-55%) scale(1);
-    transition: 0.55s cubic-bezier(0.35, 0.8, 0, 1);
+    transform: rotateZ(var(--j-rotate, -2.5deg)) translateY(-50%) scale(1);
+    transition: 0.55s cubic-bezier(0.3, 0.8, 0, 1);
     pointer-events: none;
     user-select: none;
     color: var(--accent2);
