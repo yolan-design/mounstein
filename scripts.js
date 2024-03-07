@@ -40,27 +40,38 @@ const SCREENS = {
 function screenChange({toShow = false}) {
     let screenCurrent = document.querySelectorAll('screen[display="true"]');
 
-    // clear screen
-    document.querySelectorAll("screen").forEach((s) => { s.setAttribute("display", "false"); });
+    // clear screens
+    document.querySelectorAll("screen").forEach((sd) => {
+        sd.setAttribute("display", "false");
+        sd.setAttribute("display-instant", "false");
+    });
 
     // display screen
-    if (toShow) { toShow.setAttribute("display", "true"); }
+    if (toShow) {
+        toShow.classList.remove("hidden");
+        setTimeout(() => { toShow.setAttribute("display", "true"); }, 33);
+        toShow.setAttribute("display-instant", "true"); // no delay
+    }
 
-    if (toShow == SCREENS.jeu) { header.setAttribute("size", "small"); }
-    else { header.setAttribute("size", "large"); }
-
-    if (toShow == SCREENS.jeu) { document.documentElement.setAttribute("jeu", "on"); }
-    else { document.documentElement.setAttribute("jeu", "off"); }
+    // logo size in/out game
+    if (toShow == SCREENS.jeu) {
+        header.setAttribute("size", "small");
+        document.documentElement.setAttribute("jeu", "on"); // global on
+    }
+    else {
+        header.setAttribute("size", "large");
+        document.documentElement.setAttribute("jeu", "off"); // global off
+    }
 }
 
 function screenPop({toShow = false, logoLarge = true}) {
     if (!toShow) {
         // remove current pop
-        document.querySelectorAll("screen[pop='true']").forEach((popEl) => {
+        document.querySelectorAll("screen[pop-instant='true']").forEach((popEl) => {
             addEvTrEnd(popEl, () => { popEl.classList.add("hidden"); }, "opacity", true);
         })
 
-        // global
+        // global off
         document.documentElement.setAttribute("pop", "off");
 
         // restore logo size
@@ -68,16 +79,22 @@ function screenPop({toShow = false, logoLarge = true}) {
     }
     if (!logoLarge) { header.setAttribute("size", "small"); }
 
-    // clear pop
-    document.querySelectorAll("screen").forEach((sEl) => { sEl.setAttribute("pop", "false"); });
+    // clear pops
+    document.querySelectorAll("screen").forEach((sEl) => {
+        sEl.setAttribute("pop", "false");
+        sEl.setAttribute("pop-instant", "false");
+    });
 
     if (toShow) {
         // lower current screen
-        document.querySelectorAll("screen[display='true']").forEach((sEl) => { sEl.setAttribute("pop", "lower"); });
+        document.querySelectorAll("screen[display-instant='true']").forEach((sEl) => { sEl.setAttribute("pop", "lower"); });
 
         // display pop
         toShow.classList.remove("hidden");
         setTimeout(() => { toShow.setAttribute("pop", "true"); }, 33);
+        toShow.setAttribute("pop-instant", "true"); // no delay
+
+        // global on
         document.documentElement.setAttribute("pop", "active");
     }
 }
