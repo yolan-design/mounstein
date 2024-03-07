@@ -19,10 +19,10 @@
     <header>
         <nav>
             <div id="jeu_reload" class="btn-nav">
-                <svg viewBox="0 0 16 16"><g><line x1="0" x2="16" y2="16" /><line x1="16" y1="0" y2="16" /></g></svg>
+                <svg id="icon-jeu_reload" viewBox="0 0 16 16"><g><line x1="0" x2="16" y2="16" /><line x1="16" y1="0" y2="16" /></g></svg>
             </div>
             <a id="jeu_rules" class="btn-nav" href="files/mounstein-regles.pdf" target="_blank">
-                <svg viewBox="0 0 20 16">
+                <svg id="icon-rules" viewBox="0 0 20 16">
                     <g>
                         <polyline points="17.066 2.926 20 2.926 20 16 10 16 10 3.654 10 16 0 16 0 2.926 2.934 2.926" />
                         <path d="M10,15.634c2.038-1.999,5.345-2.781,7.066-3.045V0c-1.721.264-5.028,1.655-7.066,3.654C7.962,1.655,4.655.264,2.934,0v12.589c1.721.264,5.028,1.046,7.066,3.045Z" />
@@ -44,7 +44,15 @@
             <input type="range" id="joueursNb-slider" min="2" max="4" step="1" />
 
             <div>
-                <button id="jeu_start_rules" class="btn">Afficher les règles</button>
+                <button id="jeu_start_rules" class="btn">
+                    <svg id="icon-rules" viewBox="0 0 20 16">
+                        <g>
+                            <polyline points="17.066 2.926 20 2.926 20 16 10 16 10 3.654 10 16 0 16 0 2.926 2.934 2.926" />
+                            <path d="M10,15.634c2.038-1.999,5.345-2.781,7.066-3.045V0c-1.721.264-5.028,1.655-7.066,3.654C7.962,1.655,4.655.264,2.934,0v12.589c1.721.264,5.028,1.046,7.066,3.045Z" />
+                        </g>
+                    </svg>
+                    <span>Afficher les règles</span>
+                </button>
                 <button id="jeu_start" class="btn prominent">Commencer</button>
             </div>
         </screen>

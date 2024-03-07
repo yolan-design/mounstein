@@ -2,7 +2,7 @@
     --bg1: hsl(140, 30%, 50%);
     --bg2: hsl(140, 50%, 72.5%);
     --bg3: hsl(140, 100%, 90%);
-    --accent1: hsl(220, 80%, 45%);
+    --accent1: hsl(225, 70%, 52%);
     --accent2: hsl(140, 50%, 25%);
     --txt: #000000;
 }
@@ -131,29 +131,19 @@ header[jeu="off"] .btn-nav {
     transition: opacity 0.4s;
 }
 .btn-nav svg {
-    font-size: 1.75rem;
-    width: 1em;
-    height: 1em;
-
-    fill: none;
-    stroke: var(--bg3);
-    stroke-width: 3px;
-    stroke-linecap: round;
-}
-.btn-nav#jeu_rules svg {
-    overflow: visible;
-    width: 1.75em;
-    height: 1.25em;
-    stroke-width: 2px;
-    stroke-width: 1.5px;
+    color: var(--bg3);
 }
 
 .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--bg3);
     color: var(--accent1);
     font-weight: 400;
     letter-spacing: -0.1px;
     font-size: 1.75rem;
+    line-height: 1;
     padding: 1em;
     margin: 2em 0 1em;
     width: 100%;
@@ -178,6 +168,9 @@ header[jeu="off"] .btn-nav {
 .btn + .btn {
     margin-top: 0em;
 }
+.btn > *:not(:only-child):not(:first-child) {
+    margin-left: 0.6em;
+}
 
 *[class*="btn"] {
     filter: brightness(1);
@@ -201,6 +194,28 @@ header[jeu="off"] .btn-nav {
     font-weight: 300;
     letter-spacing: 1.25px;
 }
+
+
+svg {
+    font-size: 1.75rem;
+    width: 1em;
+    height: 1em;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3px;
+    stroke-linecap: round;
+}
+svg#icon-rules {
+    overflow: visible;
+    width: 1.75em;
+    height: 1.25em;
+    stroke-width: 2px;
+    stroke-width: 1.5px;
+    transform: translateY(-0.1em);
+}
+
+
 
 /* CONTENT */
 main {
