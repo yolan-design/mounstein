@@ -51,7 +51,7 @@ function gameTour({type = "equilibre", nbJoueurs}) {
         GAME.joueurs["j_"+j] = {};
         GAME.joueurs["j_"+j].positionInit = j;
         GAME.joueurs["j_"+j].position = j;
-        GAME.joueurs["j_"+j].random = randomIntFromInterval(2, 9) * ((j % 2 == 0) ? 1 : -1);
+        GAME.joueurs["j_"+j].random = randomIntFromInterval(2, 8) * ((j % 2 == 0) ? 1 : -1);
         // GAME.joueurs["j_"+j].actif = false;
     }
     console.log(GAME);
@@ -83,7 +83,7 @@ function gameTour({type = "equilibre", nbJoueurs}) {
 
         joueurStringUpdate();
         LABEL_selectionNom.innerText = joueurString; // label UI
-        LABEL_selectionNom.style.setProperty('--j-rotate', GAME.joueurs["j_"+ selectionCount].random +"deg");
+        SCREENS.selection.style.setProperty('--j-rotate', GAME.joueurs["j_"+ selectionCount].random +"deg");
 
          // valeur champ, conserver nom joueur si existe
         INPUT_selectionNom.value = ((GAME.joueursNoms.length > 0)
