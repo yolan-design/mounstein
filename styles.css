@@ -123,12 +123,12 @@ header, nav {
     transition: padding 0.5s ease;
 }
 header[size="large"] {
-    padding-top: 5rem;
+    padding-top: 3rem;
 }
 
 header #logo {
     position: relative;
-    top: -2rem;
+    top: -0.5rem;
     left: 50%;
     transform: translateX(-50%);
     width: 16rem;
