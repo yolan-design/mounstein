@@ -635,14 +635,17 @@ screen#rules {
 #r-materiel-grid > *:nth-child(2) {
     animation: tuile-colors 13s steps(4) infinite;
 }
+#r-materiel-grid > *:nth-child(1) img {
+    animation-delay: 0.4s;
+}
 #r-materiel-grid > *:nth-child(2) img {
-    animation-delay: 0.3s;
+    animation-delay: 0.8s;
 }
 #r-materiel-grid > *:nth-child(3) img {
-    animation-delay: 0.6s;
+    animation-delay: 1s;
 }
 #r-materiel-grid > *:nth-child(4) img {
-    animation-delay: 0.9s;
+    animation-delay: 1.4s;
 }
 @keyframes item-floating {
     0% { transform: translateY(-0.75rem); }
