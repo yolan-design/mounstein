@@ -1,10 +1,10 @@
 :root {
-    --bg1: hsl(140, 30%, 50%);
-    --bg2: hsl(140, 40%, 72.5%);
-    --bg3: hsl(140, 70%, 90%);
-    --bg4: hsl(140, 40%, 80%);
+    --bg1: hsl(130, 32.5%, 55%);
+    --bg2: hsl(130, 42.5%, 72.5%);
+    --bg3: hsl(130, 70%, 90%);
+    --bg4: hsl(130, 45%, 82.5%);
     --accent1: hsl(215, 73%, 45%);
-    --accent2: hsl(140, 50%, 25%);
+    --accent2: #1f4c26;
     --txt: #000000;
 }
 html {
@@ -53,19 +53,19 @@ h1, h2, h3, h4 {
 }
 h1 {
     font-size: 1.75em;
+    color: var(--accent2);
 }
 h2 {
-    font-size: 1.4em;
-}
-h2 {
-    font-size: 1.3em;
+    font-size: 1.375em;
+    color: var(--accent2);
 }
 h3 {
-    font-size: 1.15em;
+    font-size: 1.175em;
     color: var(--accent1);
 }
 h4 {
-    font-size: 1em;
+    font-size: 0.9em;
+    letter-spacing: -0.15px;
     font-style: italic;
     color: var(--accent1);
 }
@@ -195,9 +195,11 @@ header #logo {
     left: 50%;
     transform: translateX(-50%);
     width: 16rem;
-    transition: 0.5s ease;
+    filter: brightness(1);
+    transition: 0.5s ease, filter 0.25s ease;
     will-change: width, height, top, left;
-    pointer-events: none;
+    user-select: none;
+    cursor: pointer;
 }
 @media (min-width: 550px) {
     header #logo {
@@ -226,7 +228,7 @@ top {
     padding: 1em 2rem;
 }
 top svg {
-    color: var(--txt) !important;
+    color: var(--accent2) !important;
 }
 
 html[jeu="off"] nav .btn-nav,
@@ -312,7 +314,8 @@ html[pop="active"] nav .btn-nav {
     transform: scale(0.95);
     transition: 0.035s;
 }
-.btn:hover {
+.btn:hover,
+header #logo:hover {
     filter: brightness(1.15);
 }
 .btn:active {
@@ -374,21 +377,31 @@ screen {
         );
     }
 }
+screen::after { /*margin bottom scroll*/
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5rem;
+    top: 100%;
+    left: 0;
+    background-color: transparent;
+}
+
 screen {
-    transition: transform 0.8s cubic-bezier(0.4, 0.55, 0, 1), opacity 0.35s ease, filter 0.3s ease;
+    transition: transform 0.8s cubic-bezier(0.4, 0.55, 0, 1), opacity 0.35s ease, filter 0s linear;
 
     opacity: 0;
-    /*filter: blur(0px);*/
+    /* filter: blur(0px); */
     transform: translateY(3rem);
-    transition-delay: 0s;
+    transition-delay: 0s, 0s, 0.15s;
     pointer-events: none;
     user-select: none;
 }
 screen[display="true"][pop="lower"] {
     opacity: 0.35;
-    /*filter: blur(7px);*/
+    /* filter: blur(5px); */
     transform: translateY(-4rem) scale(0.875);
-    transition-delay: 0s;
+    transition-delay: 0s, 0s, 0.15s;
     pointer-events: none;
     user-select: none;
 }
@@ -500,40 +513,53 @@ input:not(:placeholder-shown) + label {
     flex-shrink: 0;
 }
 #jeu_ordre .col span {
-    box-sizing: content-box;
     display: block;
-    margin: 0.15em;
-    padding: 0.15em;
-    border: 3px solid transparent;
+    line-height: 1 !important;
+}
+#jeu_ordre .col item {
+    margin: 0.4em;
 }
 
-#jeu_ordre .nombres span {
+#jeu_ordre .nombres item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     color: var(--accent1);
     font-weight: 400;
     width: 1em;
     height: 1em;
     text-align: center;
-    border-radius: 999em;
-    transform: scale(0.9) rotateZ(-0.01deg);
     opacity: 1;
     transition: 0.4s ease;
-    will-change: transform, border, color, opacity;
+    will-change: color, opacity;
 }
-#jeu_ordre .nombres span::after {
+#jeu_ordre .nombres item > span {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    padding: 0.135em;
+    box-sizing: content-box;
+    border: 3px solid transparent;
+    border-radius: 999em;
+    transform: scale(0.9) rotateZ(-0.01deg);
+    transition: 0.4s ease;
+    will-change: border, transform;
+}
+#jeu_ordre .nombres item::after {
     content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.447 22.447"><polyline style="stroke-width:3px; stroke:rgb(11, 74, 181); fill:transparent;" points="7.664 3.224 16.484 11.224 7.664 19.224" /></svg>');
     position: absolute;
     top: 50%;
-    left: 75%;
+    left: 80%;
     opacity: 0;
-    transform: translateY(-50%) scaleY(0.6);
+    transform: translateY(-50%) scaleY(0.5);
     width: 1em;
     height: 1em;
     transition: 0.4s ease, opacity 0.25s ease, transform 0.3s ease;
     will-change: transform, left, opacity;
 }
 
-#jeu_ordre .noms span {
+#jeu_ordre .noms item {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -544,17 +570,19 @@ input:not(:placeholder-shown) + label {
     will-change: transform, color, opacity;
 }
 
-#jeu_ordre .nombres span.active {
-    border-color: var(--accent1);
+#jeu_ordre .nombres item.active {
     color: var(--txt);
-    transform: scale(1.2) rotateZ(0.01deg);
 }
-#jeu_ordre .nombres span.active::after {
-    left: 110%;
+#jeu_ordre .nombres item.active > span {
+    border-color: var(--accent1);
+    transform: scale(1.25) rotateZ(var(--j-rotate, 10deg));
+}
+#jeu_ordre .nombres item.active::after {
+    left: 145%;
     opacity: 1;
-    transform: translateY(-50%) scale(0.9);
+    transform: translateY(-50%) scale(1);
 }
-#jeu_ordre .noms span.active {
+#jeu_ordre .noms item.active {
     transform: translateX(1em);
     opacity: 1;
 }
@@ -578,7 +606,7 @@ input:not(:placeholder-shown) + label {
     transform: translateY(0);
 }
 #jeu_ordre .nombres.move {
-    transform: translateY(1.8em);
+    transform: translateY(calc(1em + (0.4em * 2))); /* size + margin */
     transition: transform 0.45s ease;
 }
 

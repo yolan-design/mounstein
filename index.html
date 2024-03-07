@@ -18,8 +18,8 @@
 
     <header>
         <nav>
-            <div id="jeu_reload" class="btn-nav">
-                <svg id="icon-jeu_reload" viewBox="0 0 16 16"><g><line x1="0" x2="16" y2="16" /><line x1="16" y1="0" y2="16" /></g></svg>
+            <div id="jeu_end" class="btn-nav">
+                <svg id="icon-jeu_end" viewBox="0 0 16 16"><g><line x1="0" x2="16" y2="16" /><line x1="16" y1="0" y2="16" /></g></svg>
             </div>
             <div id="jeu_rules" class="btn-nav">
                 <svg id="icon-rules" viewBox="0 0 20 16">
@@ -37,6 +37,7 @@
 
 
     <main>
+
         <screen id="start" display="true">
             <h2>Combien de joueurs ?</h2>
 
@@ -91,14 +92,14 @@
         <screen id="rules">
             <top>
                 <span id="rules-top">RÈGLES DU JEU</span>
-                <div id="rules_close" class="btn-nav">
-                    <svg id="icon-jeu_reload" viewBox="0 0 16 16"><g><line x1="0" x2="16" y2="16" /><line x1="16" y1="0" y2="16" /></g></svg>
+                <div id="rules_close" class="btn-nav pop-close">
+                    <svg id="icon-jeu_end" viewBox="0 0 16 16"><g><line x1="0" x2="16" y2="16" /><line x1="16" y1="0" y2="16" /></g></svg>
                 </div>
             </top>
 
             <div class="box">
                 <h2>Objectif</h2>
-                <p class="accented">Marquez le plus de points contre vos adversaires en plaçant vos tuiles stratégiquement !</p>
+                <p class="accented">Marquez le plus de points possible contre vos adversaires en plaçant vos tuiles stratégiquement !</p>
             </div>
 
             <h2>Matériel</h2>
@@ -139,7 +140,7 @@
             <div class="list-nb">
                 <div>
                     <span>1</span>
-                    <p>Détendez la ficelle du sac de transport et <ba>mettez-le à plat pour le transformer en plateau de jeu</ba>.</p>
+                    <p>Détendez la ficelle du <ba>sac de transport</ba> et <ba>mettez-le à plat</ba> pour le transformer en plateau de jeu.</p>
                 </div>
                 <div>
                     <span>2</span>
@@ -171,9 +172,27 @@
 
             <h3>Tour par tour équilibré</h3>
 
-            <button id="rules_start" class="btn prominent">Accéder au comptage des tours automatique</button>
+            <button id="rules_start" class="btn prominent pop-close">Accéder au comptage des tours automatique</button>
 
         </screen>
+
+
+        <screen id="infos">
+            <top>
+                <span id="infos-top">INFORMATIONS</span>
+                <div id="infos_close" class="btn-nav pop-close">
+                    <svg id="icon-jeu_end" viewBox="0 0 16 16"><g><line x1="0" x2="16" y2="16" /><line x1="16" y1="0" y2="16" /></g></svg>
+                </div>
+            </top>
+            <h2>Crédits</h2>
+            <span>Mounstein est un projet réalisé durant Grosse Quizaine St-G etc...</span>
+            <span>Groupe formé</span>
+            <p>A. Lucie<br>A. Gwendal<br>E. Nathan<br>G. Yolan<br>G. Alexandre<br>L. Auxence</p>
+
+            <h2>Concept</h2>
+            <span>einstein tile explication, mathématicien qui l'a trouvé, pas de rapport avec le célèbre physicien</span>
+        </screen>
+
     </main>
 
 </body>

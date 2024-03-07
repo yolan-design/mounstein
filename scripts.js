@@ -35,50 +35,56 @@ const SCREENS = {
     selection : document.querySelector("screen#selection"),
     jeu : document.querySelector("screen#jeu"),
     rules : document.querySelector("screen#rules"),
+    infos : document.querySelector("screen#infos"),
 }
-function screenChange({show = false}) {
-    document.querySelectorAll("screen").forEach((s) => {
-        s.setAttribute("display", "false");
-    })
-    if (show) { show.setAttribute("display", "true"); }
+function screenChange({toShow = false}) {
+    let screenCurrent = document.querySelectorAll('screen[display="true"]');
 
-    if (show == SCREENS.jeu) { header.setAttribute("size", "small"); }
+    // clear screen
+    document.querySelectorAll("screen").forEach((s) => { s.setAttribute("display", "false"); });
+
+    // display screen
+    if (toShow) { toShow.setAttribute("display", "true"); }
+
+    if (toShow == SCREENS.jeu) { header.setAttribute("size", "small"); }
     else { header.setAttribute("size", "large"); }
 
-    if (show == SCREENS.jeu) { document.documentElement.setAttribute("jeu", "on"); }
+    if (toShow == SCREENS.jeu) { document.documentElement.setAttribute("jeu", "on"); }
     else { document.documentElement.setAttribute("jeu", "off"); }
 }
-function screenPop({show = false, logo = true}) {
-    let popCurrent = document.querySelectorAll('screen[pop="true"]');
 
-    document.querySelectorAll("screen").forEach((s) => {
-        if (show) {
-            s.setAttribute("pop", "lower");
-        } else {
-            s.setAttribute("pop", "false");
-        }
-    })
-
-    if (show) {
-        show.classList.remove("hidden");
-        setTimeout(() => { show.setAttribute("pop", "true"); }, 1);
-        document.documentElement.setAttribute("pop", "active");
-    } else {
-        console.log("t", popCurrent);
-        popCurrent.forEach((popEl) => {
-            console.log(popEl);
+function screenPop({toShow = false, logoLarge = true}) {
+    if (!toShow) {
+        // remove current pop
+        document.querySelectorAll("screen[pop='true']").forEach((popEl) => {
             addEvTrEnd(popEl, () => { popEl.classList.add("hidden"); }, "opacity", true);
         })
-        document.documentElement.setAttribute("pop", "off");
-        if (logo && document.documentElement.getAttribute("jeu") != "on") { header.setAttribute("size", "large"); }
-    }
 
-    if (!logo) { header.setAttribute("size", "small"); }
+        // global
+        document.documentElement.setAttribute("pop", "off");
+
+        // restore logo size
+        if (logoLarge && document.documentElement.getAttribute("jeu") != "on") { header.setAttribute("size", "large"); }
+    }
+    if (!logoLarge) { header.setAttribute("size", "small"); }
+
+    // clear pop
+    document.querySelectorAll("screen").forEach((sEl) => { sEl.setAttribute("pop", "false"); });
+
+    if (toShow) {
+        // lower current screen
+        document.querySelectorAll("screen[display='true']").forEach((sEl) => { sEl.setAttribute("pop", "lower"); });
+
+        // display pop
+        toShow.classList.remove("hidden");
+        setTimeout(() => { toShow.setAttribute("pop", "true"); }, 33);
+        document.documentElement.setAttribute("pop", "active");
+    }
 }
 
 function updateAnimClass(el, c) {
     el.classList.remove(c);
-    setTimeout(() => { el.classList.add(c); }, 50);
+    setTimeout(() => { el.classList.add(c); }, 100);
 }
 
 let header = document.querySelector("header"),
@@ -93,28 +99,28 @@ function gameTour({type = "equilibre", nbJoueurs}) {
     GAME.tourType = type;
     GAME.joueursNb = nbJoueurs;
     GAME.joueurActif = 1;
-
+    GAME.randomRotateInvert = parseInt(Math.random().toFixed());
 
     //-- création des joueurs
     for (let j = 1; j < GAME.joueursNb + 1; j++) {
         GAME.joueurs["j_"+j] = {};
         GAME.joueurs["j_"+j].positionInit = j;
         GAME.joueurs["j_"+j].position = j;
-        GAME.joueurs["j_"+j].random = randomIntFromInterval(4, 9) * ((j % 2 == 0) ? 1 : -1);
+        GAME.joueurs["j_"+j].random = randomIntFromInterval(4, 10) * (((j + GAME.randomRotateInvert) % 2 == 0) ? 1 : -1);
         // GAME.joueurs["j_"+j].actif = false;
     }
     console.log(GAME);
 
 
     //-- joueurs choississent leur nom
-    screenChange({show : SCREENS.selection});
+    screenChange({toShow : SCREENS.selection});
 
     function joueurSelectionSuivant() {
         selectionCount += 1;
         if (selectionCount > GAME.joueursNb) {
             selectionCount = 1;
 
-            screenChange({show : SCREENS.jeu});
+            screenChange({toShow : SCREENS.jeu});
             jeuCreate();
 
             // stocker les noms
@@ -169,8 +175,8 @@ function gameTour({type = "equilibre", nbJoueurs}) {
         let colNb = "", colNoms = "";
 
         for (let j = 1; j <= GAME.joueursNb; j++) {
-            colNb += "<span>"+ j +"</span>";
-            colNoms += "<span>"+ GAME.joueurs["j_"+ j].nom +"</span>";
+            colNb += "<item><span style='--j-rotate: "+ (GAME.joueurs["j_"+ j].random * 1.3) +"deg;'>"+ j +"</span></item>";
+            colNoms += "<item>"+ GAME.joueurs["j_"+ j].nom +"</item>";
         }
         jeuOrdreColNb.innerHTML = colNb;
         jeuOrdreColNoms.innerHTML = colNoms;
@@ -193,10 +199,12 @@ function gameTour({type = "equilibre", nbJoueurs}) {
             }
 
             // update liste ordre nombre
+            let nbOrdre = ((parseInt(jeuOrdreColNb.firstElementChild.innerText) <= 1) ? GAME.joueursNb : (parseInt(jeuOrdreColNb.firstElementChild.innerText) - 1));
+
             jeuOrdreColNb.innerHTML =
-                "<span class='in'>"+
-                ((parseInt(jeuOrdreColNb.firstElementChild.innerText) <= 1) ? GAME.joueursNb : (parseInt(jeuOrdreColNb.firstElementChild.innerText) - 1))
-                +"</span>" + jeuOrdreColNb.innerHTML;
+                "<item class='in'><span style='--j-rotate: "+ (GAME.joueurs["j_"+ nbOrdre].random * 1.3) +"deg;'>"+
+                nbOrdre
+                +"</span></item>" + jeuOrdreColNb.innerHTML;
 
             jeuOrdreColNb.lastElementChild.classList.add("out");
             jeuOrdreColNb.classList.add("move");
@@ -205,7 +213,7 @@ function gameTour({type = "equilibre", nbJoueurs}) {
                 jeuOrdreColNb.lastElementChild.remove();
                 jeuOrdreColNb.firstElementChild.classList.remove("in");
                 jeuOrdreColNb.classList.remove("move");
-            }, 400);
+            }, 500);
         }
         SCREENS.jeu.querySelector("#jeu_tour").innerText = "Tour n° "+ GAME.tour;
 
@@ -215,11 +223,11 @@ function gameTour({type = "equilibre", nbJoueurs}) {
             if (j[1].position == GAME.joueurActif) {
                 SCREENS.jeu.querySelector("span#joueur_actif").innerText = j[1].nom;
 
-                jeuOrdreColNb.querySelectorAll("span").forEach(span => { span.classList.remove("active"); });
-                jeuOrdreColNoms.querySelectorAll("span").forEach(span => { span.classList.remove("active"); });
+                jeuOrdreColNb.querySelectorAll("item").forEach(item => { item.classList.remove("active"); });
+                jeuOrdreColNoms.querySelectorAll("item").forEach(item => { item.classList.remove("active"); });
                 setTimeout(() => {
-                    jeuOrdreColNb.querySelectorAll("span:nth-child("+ j[1].positionInit +")").forEach(span => { span.classList.add("active"); });
-                    jeuOrdreColNoms.querySelectorAll("span:nth-child("+ j[1].positionInit +")").forEach(span => { span.classList.add("active"); });
+                    jeuOrdreColNb.querySelectorAll("item:nth-child("+ j[1].positionInit +")").forEach(item => { item.classList.add("active"); });
+                    jeuOrdreColNoms.querySelectorAll("item:nth-child("+ j[1].positionInit +")").forEach(item => { item.classList.add("active"); });
                 }, 200);
             }
         })
@@ -251,28 +259,31 @@ jNbInput.addEventListener("input", (event) => {
     jNbValue.textContent = event.target.value;
 });
 
+screenChange({toShow : SCREENS.start});
+if(window.location.hash != "#jeu") { screenPop({toShow : SCREENS.rules, logoLarge : false}); } // afficher les règles dès l'ouverture du site (mais pas avec une URL particulière en cas où)
 
-//-- FLOW
-screenChange({show : SCREENS.start});
-if(window.location.hash != "#jeu") { screenPop({show : SCREENS.rules, logo : false}); } // afficher les règles dès l'ouverture du site (mais pas avec une URL particulière en cas où)
 
+//-- INTERACTIONS
 SCREENS.start.querySelector(".btn#jeu_start_rules").addEventListener("click", () => {
-    screenPop({show : SCREENS.rules, logo : false});
+    screenPop({toShow : SCREENS.rules, logoLarge : false});
 })
-SCREENS.rules.querySelector(".btn-nav#rules_close").addEventListener("click", () => {
-    screenPop({});
-})
-SCREENS.rules.querySelector(".btn#rules_start").addEventListener("click", () => {
-    screenPop({});
+document.querySelectorAll(".pop-close").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        screenPop({});
+    })
 })
 
-header.querySelector(".btn-nav#jeu_reload").addEventListener("click", () => {
-    screenChange({show : SCREENS.start});
+header.querySelector("#logo").addEventListener("click", () => {
+    screenPop({toShow : SCREENS.infos, logoLarge : false});
+})
+
+header.querySelector(".btn-nav#jeu_end").addEventListener("click", () => {
+    screenChange({toShow : SCREENS.start});
 })
 header.querySelector(".btn-nav#jeu_rules").addEventListener("click", () => {
-    screenPop({show : SCREENS.rules, logo : false});
+    screenPop({toShow : SCREENS.rules, logoLarge : false});
 })
 
 document.querySelector(".btn#jeu_start").addEventListener("click", () => {
-    gameTour({nbJoueurs : parseInt(jNbInput.value)}) //TODO on peut quand même écrire hors des valeurs min et max (1 ou +100)
+    gameTour({nbJoueurs : parseInt(jNbInput.value)})
 })
