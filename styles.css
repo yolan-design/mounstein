@@ -152,7 +152,7 @@ header[jeu="off"] .btn-nav {
     background-color: var(--bg3);
     color: var(--accent1);
     font-weight: 400;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.1px;
     font-size: 1.75rem;
     padding: 1em;
     margin: 2em 0 1em;
@@ -175,6 +175,9 @@ header[jeu="off"] .btn-nav {
     will-change: filter, transform;
     -webkit-tap-highlight-color: transparent;
 }
+.btn + .btn {
+    margin-top: 0em;
+}
 
 *[class*="btn"] {
     filter: brightness(1);
@@ -192,7 +195,12 @@ header[jeu="off"] .btn-nav {
     filter: brightness(0.95);
 }
 
-
+.btn.prominent {
+    background-color: var(--accent1);
+    color: var(--bg3);
+    font-weight: 300;
+    letter-spacing: 1.25px;
+}
 
 /* CONTENT */
 main {
@@ -334,13 +342,13 @@ input:not(:placeholder-shown) + label {
 
 #jeu_ordre .nombres span {
     position: relative;
-    color: var(--accent2);
+    color: var(--accent1);
     font-weight: 400;
     width: 1em;
     height: 1em;
     text-align: center;
     border-radius: 999em;
-    transform: scale(0.95);
+    transform: scale(0.9) rotateZ(-0.01deg);
     opacity: 1;
     transition: 0.4s ease;
     will-change: transform, border, color, opacity;
@@ -349,13 +357,13 @@ input:not(:placeholder-shown) + label {
     content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.447 22.447"><polyline style="stroke-width:3px; stroke:rgb(11, 74, 181); fill:transparent;" points="7.664 3.224 16.484 11.224 7.664 19.224" /></svg>');
     position: absolute;
     top: 50%;
-    left: 70%;
+    left: 75%;
     opacity: 0;
     transform: translateY(-50%) scaleY(0.6);
     width: 1em;
     height: 1em;
     color: var(--accent2);
-    transition: 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
+    transition: 0.4s ease, opacity 0.25s ease, transform 0.3s ease;
     will-change: transform, left, opacity;
 }
 
@@ -373,12 +381,12 @@ input:not(:placeholder-shown) + label {
 #jeu_ordre .nombres span.active {
     border-color: var(--accent1);
     color: var(--txt);
-    transform: scale(1.1);
+    transform: scale(1.2) rotateZ(0.01deg);
 }
 #jeu_ordre .nombres span.active::after {
-    left: 120%;
+    left: 110%;
     opacity: 1;
-    transform: translateY(-50%) scaleY(1);
+    transform: translateY(-50%) scale(0.9);
 }
 #jeu_ordre .noms span.active {
     transform: translateX(1em);
@@ -405,5 +413,5 @@ input:not(:placeholder-shown) + label {
 }
 #jeu_ordre .nombres.move {
     transform: translateY(1.8em);
-    transition: transform 0.4s ease;
+    transition: transform 0.45s ease;
 }
