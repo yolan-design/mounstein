@@ -1,4 +1,29 @@
 
+// apply function at the end of a css transition of an element (no propagation, option to do it only once)
+function addEvTrEnd(elem, func, property, once) {
+    var isNotAlready = true,
+        property = property ? property : false, // default: false
+        once = once ? once : true; // once? / default: true
+
+    if(!property) { // will check for all css properties
+        elem.addEventListener("transitionend", () => { func(); }, { once : once });
+    } else { // will check only for specified css property
+        elem.addEventListener("transitionend", (ev) => { if(ev.propertyName == property) { func(); }}, { once : once });
+    }
+
+    trEndAlready.forEach(e => { isNotAlready &= (e == elem) ? false : true; }); // check if already checking for trEnd
+    if(isNotAlready) {
+        trEndAlready.push(elem);
+        elem.childNodes.forEach((el) => { el.addEventListener("transitionend", (ev) => { ev.stopPropagation(); })});
+    }
+} var trEndAlready = [];
+
+
+function randomIntFromInterval(min, max) { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+
 //-- initialisation
 let GAME = {
     joueursNoms : [],
@@ -24,15 +49,26 @@ function screenChange({show = false}) {
     else { document.documentElement.setAttribute("jeu", "off"); }
 }
 function screenPop({show = false, logo = true}) {
+    let popCurrent = document.querySelectorAll('screen[pop="true"]');
+
     document.querySelectorAll("screen").forEach((s) => {
-        if (show) { s.setAttribute("pop", "lower"); }
-        else { s.setAttribute("pop", "false"); }
+        if (show) {
+            s.setAttribute("pop", "lower");
+        } else {
+            s.setAttribute("pop", "false");
+        }
     })
 
     if (show) {
-        show.setAttribute("pop", "true");
+        show.classList.remove("hidden");
+        setTimeout(() => { show.setAttribute("pop", "true"); }, 1);
         document.documentElement.setAttribute("pop", "active");
     } else {
+        console.log("t", popCurrent);
+        popCurrent.forEach((popEl) => {
+            console.log(popEl);
+            addEvTrEnd(popEl, () => { popEl.classList.add("hidden"); }, "opacity", true);
+        })
         document.documentElement.setAttribute("pop", "off");
         if (logo && document.documentElement.getAttribute("jeu") != "on") { header.setAttribute("size", "large"); }
     }
@@ -43,10 +79,6 @@ function screenPop({show = false, logo = true}) {
 function updateAnimClass(el, c) {
     el.classList.remove(c);
     setTimeout(() => { el.classList.add(c); }, 50);
-}
-
-function randomIntFromInterval(min, max) { // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 let header = document.querySelector("header"),
@@ -228,7 +260,10 @@ SCREENS.start.querySelector(".btn#jeu_start_rules").addEventListener("click", ()
     screenPop({show : SCREENS.rules, logo : false});
 })
 SCREENS.rules.querySelector(".btn-nav#rules_close").addEventListener("click", () => {
-    screenPop({}); // TODO special case in game to not scale up logo when closing
+    screenPop({});
+})
+SCREENS.rules.querySelector(".btn#rules_start").addEventListener("click", () => {
+    screenPop({});
 })
 
 header.querySelector(".btn-nav#jeu_reload").addEventListener("click", () => {
