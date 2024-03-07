@@ -21,14 +21,14 @@
             <div id="jeu_reload" class="btn-nav">
                 <svg id="icon-jeu_reload" viewBox="0 0 16 16"><g><line x1="0" x2="16" y2="16" /><line x1="16" y1="0" y2="16" /></g></svg>
             </div>
-            <a id="jeu_rules" class="btn-nav" href="files/mounstein-regles.pdf" target="_blank">
+            <div id="jeu_rules" class="btn-nav">
                 <svg id="icon-rules" viewBox="0 0 20 16">
                     <g>
                         <polyline points="17.066 2.926 20 2.926 20 16 10 16 10 3.654 10 16 0 16 0 2.926 2.934 2.926" />
                         <path d="M10,15.634c2.038-1.999,5.345-2.781,7.066-3.045V0c-1.721.264-5.028,1.655-7.066,3.654C7.962,1.655,4.655.264,2.934,0v12.589c1.721.264,5.028,1.046,7.066,3.045Z" />
                     </g>
                 </svg>
-            </a>
+            </div>
         </nav>
         <div id="logo">
             <img src="src/logo.svg" alt="Mounstein">
@@ -58,7 +58,7 @@
         </screen>
 
 
-        <screen id="selection" display="">
+        <screen id="selection">
             <h2>Choisi ton nom !</h2>
             <div class="rel">
                 <div class="user-input-text">
@@ -73,7 +73,7 @@
         </screen>
 
 
-        <screen id="jeu" display="">
+        <screen id="jeu">
             <h2 id="jeu_tour"></h2>
             <div id="jeu_joueur_actif">
                 <span>C'est à </span>
@@ -85,6 +85,47 @@
                 <div class="col noms"></div>
             </div>
             <button id="jouer" class="btn prominent">Jouer</button>
+        </screen>
+
+
+        <screen id="rules">
+            <top>
+                <span id="rules-top">RÈGLES DU JEU</span>
+                <div id="rules_close" class="btn-nav">
+                    <svg id="icon-jeu_reload" viewBox="0 0 16 16"><g><line x1="0" x2="16" y2="16" /><line x1="16" y1="0" y2="16" /></g></svg>
+                </div>
+            </top>
+
+            <h2>Objectif</h2>
+            <p>Marquez le plus de points contre vos adversaires en plaçant vos tuiles stratégiquement !</p>
+
+            <h2>Matériel</h2>
+
+            <h2>Installation</h2>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+
+            <h2>Règles</h2>
+
+            <h3>Placer les tuiles</h3>
+
+            <h3>Interdits</h3>
+
+            <h3>Marquer des points</h3>
+
+
+            <h4>Utilisez vos tuiles contre vos adversaires</h4>
+
+            <h4>Attention à la hauteur</h4>
+
+
+            <h3>Tour par tour équilibré</h3>
+
+
         </screen>
     </main>
 

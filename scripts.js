@@ -9,8 +9,9 @@ const SCREENS = {
     start : document.querySelector("screen#start"),
     selection : document.querySelector("screen#selection"),
     jeu : document.querySelector("screen#jeu"),
+    rules : document.querySelector("screen#rules"),
 }
-function screenChange({show}) {
+function screenChange({show = false}) {
     document.querySelectorAll("screen").forEach((s) => {
         s.setAttribute("display", "false");
     })
@@ -19,8 +20,24 @@ function screenChange({show}) {
     if (show == SCREENS.jeu) { header.setAttribute("size", "small"); }
     else { header.setAttribute("size", "large"); }
 
-    if (show == SCREENS.jeu) { header.setAttribute("jeu", "on"); }
-    else { header.setAttribute("jeu", "off"); }
+    if (show == SCREENS.jeu) { document.documentElement.setAttribute("jeu", "on"); }
+    else { document.documentElement.setAttribute("jeu", "off"); }
+}
+function screenPop({show = false, logo = true}) {
+    document.querySelectorAll("screen").forEach((s) => {
+        if (show) { s.setAttribute("pop", "lower"); }
+        else { s.setAttribute("pop", "false"); }
+    })
+
+    if (show) {
+        show.setAttribute("pop", "true");
+        document.documentElement.setAttribute("pop", "active");
+    } else {
+        document.documentElement.setAttribute("pop", "off");
+        if (logo && document.documentElement.getAttribute("jeu") != "on") { header.setAttribute("size", "large"); }
+    }
+
+    if (!logo) { header.setAttribute("size", "small"); }
 }
 
 function updateAnimClass(el, c) {
@@ -51,7 +68,7 @@ function gameTour({type = "equilibre", nbJoueurs}) {
         GAME.joueurs["j_"+j] = {};
         GAME.joueurs["j_"+j].positionInit = j;
         GAME.joueurs["j_"+j].position = j;
-        GAME.joueurs["j_"+j].random = randomIntFromInterval(2, 8) * ((j % 2 == 0) ? 1 : -1);
+        GAME.joueurs["j_"+j].random = randomIntFromInterval(4, 9) * ((j % 2 == 0) ? 1 : -1);
         // GAME.joueurs["j_"+j].actif = false;
     }
     console.log(GAME);
@@ -205,11 +222,22 @@ jNbInput.addEventListener("input", (event) => {
 
 //-- FLOW
 screenChange({show : SCREENS.start});
+if(window.location.hash != "#jeu") { screenPop({show : SCREENS.rules, logo : false}); } // afficher les règles dès l'ouverture du site (mais pas avec une URL particulière en cas où)
 
-document.querySelector(".btn#jeu_start").addEventListener("click", () => {
-    gameTour({nbJoueurs : parseInt(jNbInput.value)}) //TODO on peut quand même écrire hors des valeurs min et max (1 ou +100)
+SCREENS.start.querySelector(".btn#jeu_start_rules").addEventListener("click", () => {
+    screenPop({show : SCREENS.rules, logo : false});
+})
+SCREENS.rules.querySelector(".btn-nav#rules_close").addEventListener("click", () => {
+    screenPop({}); // TODO special case in game to not scale up logo when closing
 })
 
 header.querySelector(".btn-nav#jeu_reload").addEventListener("click", () => {
     screenChange({show : SCREENS.start});
+})
+header.querySelector(".btn-nav#jeu_rules").addEventListener("click", () => {
+    screenPop({show : SCREENS.rules, logo : false});
+})
+
+document.querySelector(".btn#jeu_start").addEventListener("click", () => {
+    gameTour({nbJoueurs : parseInt(jNbInput.value)}) //TODO on peut quand même écrire hors des valeurs min et max (1 ou +100)
 })

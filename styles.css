@@ -47,14 +47,32 @@ h1, h2, h3, h4, h5 {
     font-weight: 400;
     letter-spacing: -0.5px;
 }
-h1, h2, h3 {
+h1, h2, h3, h4 {
     text-align: center;
 }
 h1 {
     font-size: 1.75em;
 }
 h2 {
-    font-size: 1.25em;
+    font-size: 1.4em;
+}
+h2 {
+    font-size: 1.3em;
+}
+h3 {
+    font-size: 1.15em;
+    color: var(--accent1);
+}
+h4 {
+    font-size: 1em;
+    font-style: italic;
+    color: var(--accent1);
+}
+h1:not(:first-child),
+h2:not(:first-child),
+h3:not(:first-child),
+h4:not(:first-child) {
+    margin-top: 2em;
 }
 
 
@@ -67,6 +85,29 @@ img {
 .rel {
     position: relative;
 }
+
+
+
+/* ICONS */
+svg {
+    font-size: 1em;
+    width: 1em;
+    height: 1em;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3px;
+    stroke-linecap: round;
+}
+svg#icon-rules {
+    overflow: visible;
+    width: 1.75em;
+    height: 1.25em;
+    stroke-width: 1.75px;
+    transform: translateY(-0.1em);
+}
+
+
 
 /* HEADER */
 header {
@@ -106,19 +147,27 @@ header[size="small"] #logo {
     left: 50%;
 }
 
-nav {
+nav, top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: absolute;
-    padding-top: 0;
     left: 0;
     width: 100%;
-    display: flex;
-    align-items: center;
+    padding-top: 0;
     transition: opacity 0.4s;
 }
-header[jeu="off"] .btn-nav {
+top {
+    top: 0;
+    color: var(--bg1);
+    padding: 1em 2rem;
+}
+top svg {
+    color: var(--txt) !important;
+}
+
+html[jeu="off"] nav .btn-nav,
+html[pop="active"] nav .btn-nav {
     opacity: 0;
     pointer-events: none;
 }
@@ -134,6 +183,9 @@ header[jeu="off"] .btn-nav {
     color: var(--bg3);
     font-size: 2rem;
 }
+.btn-nav svg#icon-rules {
+    stroke-width: 1.5px;
+}
 
 .btn {
     display: flex;
@@ -143,7 +195,7 @@ header[jeu="off"] .btn-nav {
     color: var(--accent1);
     font-weight: 400;
     letter-spacing: -0.1px;
-    font-size: 1.75rem;
+    font-size: 1.7rem;
     line-height: 1;
     padding: 1em;
     margin: 2em 0 1em;
@@ -208,27 +260,8 @@ header[jeu="off"] .btn-nav {
     background-color: var(--accent1);
     color: var(--bg3);
     font-weight: 300;
+    font-size: 1.8rem;
     letter-spacing: 0.75px;
-}
-
-
-svg {
-    font-size: 1.75rem;
-    width: 1em;
-    height: 1em;
-
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 3px;
-    stroke-linecap: round;
-}
-svg#icon-rules {
-    overflow: visible;
-    width: 1.75em;
-    height: 1.25em;
-    stroke-width: 2px;
-    stroke-width: 1.5px;
-    transform: translateY(-0.1em);
 }
 
 
@@ -261,9 +294,6 @@ screen {
         0% 98%,
         0% 2.5%
     );
-    transform: translateY(0);
-    transition: 0.7s cubic-bezier(0.3, 0.5, 0, 1), opacity 0.3s ease;
-    transition-delay: 0.35s;
 }
 @media (min-width: 700px) {
     screen {
@@ -281,13 +311,36 @@ screen {
         );
     }
 }
-screen:not([display="true"]) {
+screen {
+    transition: transform 0.8s cubic-bezier(0.4, 0.55, 0, 1), opacity 0.35s ease, filter 0.3s ease;
+
+    opacity: 0;
+    /*filter: blur(0px);*/
+    transform: translateY(3rem);
     transition-delay: 0s;
     pointer-events: none;
     user-select: none;
-    transform: translateY(2.5rem);
-    opacity: 0;
 }
+screen[display="true"][pop="lower"] {
+    opacity: 0.35;
+    /*filter: blur(7px);*/
+    transform: translateY(-4rem) scale(0.875);
+    transition-delay: 0s;
+    pointer-events: none;
+    user-select: none;
+}
+
+screen[display="true"], screen[pop="true"] {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.25s;
+    pointer-events: initial;
+    user-select: initial;
+}
+screen[pop="true"] {
+    transition-delay: 0.2s;
+}
+
 
 @keyframes anim-jump {
     0% { top: 0em; }
