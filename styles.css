@@ -10,14 +10,14 @@
 html {
     font-size: 11px;
 }
-@media (min-width: 700px) {
+@media (min-width: 720px) {
     html {
-        font-size: 13.5px;
+        font-size: 12.5px;
     }
 }
 body {
     position: relative;
-    max-width: 700px;
+    max-width: 720px;
     margin: 0 auto;
     color: var(--accent2);
     background-color: var(--bg1);
@@ -406,7 +406,7 @@ html[pop="active"] nav .btn-nav {
     will-change: filter, transform;
     -webkit-tap-highlight-color: transparent;
 }
-@media (min-width: 700px) {
+@media (min-width: 720px) {
     .btn {
         clip-path: polygon(
             0 15%,
@@ -495,7 +495,7 @@ screen {
         0% 2.5%
     );
 }
-@media (min-width: 700px) {
+@media (min-width: 720px) {
     screen {
         padding: 3rem;
         clip-path: polygon(
