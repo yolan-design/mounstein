@@ -226,6 +226,13 @@ img {
     flex-direction: row;
     margin-bottom: 1em;
 }
+.list-nb.align-center > div {
+    align-items: center;
+}
+.list-nb > div > span > svg {
+    font-size: 0.8em;
+    stroke-width: 3.5px;
+}
 .list-nb > div > span:first-child {
     display: inline-flex;
     align-items: center;
