@@ -154,6 +154,9 @@ img {
 .col-flex-r > *:not(:last-child) {
     margin-right: 1em;
 }
+.col-flex-r.equal > * {
+    flex: 1;
+}
 
 *[class*="grid-"] {
     display: grid;
