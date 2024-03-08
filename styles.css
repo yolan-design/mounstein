@@ -163,10 +163,20 @@ content > img {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
     gap: 2em;
+    row-gap: 0;
+}
+.grid-2x2 .desc {
+    margin-bottom: 2em;
+}
+.grid-2x2 .desc:nth-last-child(1),
+.grid-2x2 .desc:nth-last-child(2) {
+    margin-bottom: 0;
 }
 .grid-2x2 img {
-    aspect-ratio: 1;
-    padding-bottom: 1em;
+    /* aspect-ratio: 1; */
+    height: 100%;
+    padding: 0;
+    margin-bottom: 1em;
 }
 /* .grid2x2.sep::before,
 .grid2x2.sep::after {
