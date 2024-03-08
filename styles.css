@@ -152,7 +152,7 @@ img {
     margin-bottom: 1em;
 }
 .col-flex-r > *:not(:last-child) {
-    margin-right: 1em;
+    margin-right: 0.75em;
 }
 .col-flex-r.equal > * {
     flex: 1;
