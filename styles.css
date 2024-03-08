@@ -139,9 +139,6 @@ img {
     pointer-events: none;
     user-select: none;
 }
-content > img {
-    margin: 1em 0;
-}
 
 .rel {
     position: relative;
@@ -448,6 +445,17 @@ header #logo:hover {
 
 
 /* CONTENT */
+content {
+    display: block;
+    padding-bottom: 3em;
+}
+content > *:last-child {
+    margin-bottom: 0;
+}
+content > img {
+    margin: 1em 0;
+}
+
 main {
     position: relative;
     width: 100%;
