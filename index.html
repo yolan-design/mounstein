@@ -97,82 +97,134 @@
                 </div>
             </top>
 
-            <div class="box">
-                <h2>Objectif</h2>
-                <p class="accented">Marquez le plus de points possible contre vos adversaires en plaçant vos tuiles stratégiquement !</p>
-            </div>
+            <content>
+                <div class="box">
+                    <h2>Objectif</h2>
+                    <p>Mounstein est un jeu tour par tour où vous placez vos tuiles stratégiquement autour ou par-dessus celles de vos adversaires pour gagner le plus de points possible !</p>
+                </div>
 
-            <h2>Matériel</h2>
-            <div id="r-materiel-grid" class="grid2x2 sep">
-                <div>
-                    <img src="src/medias/sac.png" alt="">
-                    <div class="desc">
-                        <span>Sac de transport</span>
-                        <span>Peut être mis à plat pour servir de plateau de jeu</span>
+                <h2>Matériel</h2>
+                <div id="r-materiel-grid" class="grid-2x2 sep">
+                    <div>
+                        <img src="src/medias/sac.png" alt="">
+                        <div class="desc">
+                            <span>Sac de transport</span>
+                            <span>Peut être mis à plat pour servir de plateau de jeu</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="tuiles-color-spin"><img src="src/medias/TUILE 3D 360.gif" alt=""></div>
+                        <div class="desc">
+                            <div class="rm-nb">x40</div>
+                            <span>Tuiles</span>
+                            <span>10 tuiles par joueur</span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="src/medias/tuile_départ.png" alt="">
+                        <div class="desc">
+                            <div class="rm-nb">x1</div>
+                            <span>Tuile de départ</span>
+                            <span>Possède le QR Code redirigeant vers ce site web</span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="src/medias/pion_mounstein.png" alt="">
+                        <div class="desc">
+                            <div class="rm-nb">x1</div>
+                            <span>Pion Mounstein</span>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <img src="src/medias/TUILE 3D 360.gif" alt="">
-                    <div class="desc">
-                        <div class="rm-nb">x40</div>
-                        <span>Tuiles</span>
-                        <span>10 tuiles par joueur</span>
+
+                <h2>Installation</h2>
+                <div class="list-nb">
+                    <div>
+                        <span>1</span>
+                        <p>Détendez la ficelle du <ba>sac de transport</ba> et <ba>mettez-le à plat</ba> pour le transformer en plateau de jeu.</p>
+                    </div>
+                    <div>
+                        <span>2</span>
+                        <p>Placez la <ba>tuile de départ</ba> n’importe où sur le plateau de jeu.</p>
+                    </div>
+                    <div>
+                        <span>3</span>
+                        <p>Jouez autour de la tuile de départ.</p>
+                    </div>
+                    <div>
+                        <span>4</span>
+                        <p>La partie s’arrête quand tous les joueurs ont placé l’intégralité de leurs tuiles.</p>
                     </div>
                 </div>
-                <div>
-                    <img src="src/medias/tuile_départ.png" alt="">
-                    <div class="desc">
-                        <div class="rm-nb">x1</div>
-                        <span>Tuile de départ</span>
-                        <span>Possède le QR Code redirigeant vers ce site web</span>
+
+                <h2>Règles</h2>
+
+                <h3>Comment placer les tuiles</h3>
+                <p>Il existe deux possibilités de placement : <ba>au même niveau</ba> et <ba>en étage</ba>.</p>
+                <div class="list-str">
+                    <div>
+                        <span>Au même niveau</span>
+                        <p>Veillez à ce qu’au moins deux (2) arêtes des tuiles collées correspondent entre elles.</p>
+                        <div class="grid-3">
+                            <img src="src/medias/placement-bien1.png" alt="">
+                            <img src="src/medias/placement-bien2.png" alt="">
+                            <img src="src/medias/placement-nul1.png" alt="">
+                        </div>
+                    </div>
+                    <div>
+                        <span>En étage</span>
+                        <div class="list-nb small">
+                            <div>
+                                <span>1</span>
+                                <p>Alignez les diamants avec les tuiles d’en dessous.</p>
+                            </div>
+                            <div>
+                                <span>2</span>
+                                <p>Il faut que la tuile placée recouvre au moins deux (2) tuiles sous elle.</p>
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <img src="src/medias/placement_hauteur-bien1.png" alt="">
+                            <img src="src/medias/placement_hauteur-nul1.png" alt="">
+                        </div>
+                        <note><span>Astuce :</span><span>Prenez un des diamants de votre tuile et faites la correspondre en tournant votre pièce !</span></note>
                     </div>
                 </div>
-                <div>
-                    <img src="src/medias/pion_mounstein.png" alt="">
-                    <div class="desc">
-                        <div class="rm-nb">x1</div>
-                        <span>Pion Mounstein</span>
+
+                <h3>Interdits</h3>
+                <p>Il est interdit de jouer en dehors du plateau.</p>
+                <p>Il est interdit de placer une tuile toute seule séparée des autres tuiles.</p>
+
+                <h3>Marquer des points</h3>
+                <p>Chaque diamant sur une tuile correspond à <ba>un (1) point</ba>. Une tuile comporte donc <ba>huit (8) points au total</ba>.</p>
+                <p>À la fin de la partie, comptez sur vos tuiles les diamants <ba>visibles de dessus</ba>. Le joueur qui a le plus de points (de diamants) gagne la partie.</p>
+                <img src="src/medias/points.png" alt="">
+
+                <h4>Utilisez vos tuiles contre vos adversaires</h4>
+                <p><ba>Vous annulez les points d’une tuile en recouvrant ses diamants avec vos tuiles</ba>. Jouez intelligemment contre vos adversaires pour recouvrir leurs tuiles et ne pas être recouvert !</p>
+
+                <h4>Attention à la hauteur</h4>
+                <p>Les tuiles placées sur <ba>l’étage de hauteur le plus haut ne comptent pas de points</ba>. Elles peuvent en revanche toujours bloquer les tuiles en dessous.</p>
+
+
+                <h3>Tour par tour équilibré</h3>
+                <p><ba>L’ordre des joueurs change chaque tour pour équilibrer le jeu</ba> et permettre une plus grande diversité de coups.</p>
+                <p>Le premier joueur de chaque tour change pour le suivant dans l’ordre chronologique.</p>
+
+                <note class="t-center"><span>Utilisez le pion Mounstein pour vous aider</span>Au début de la partie, le premier joueur prend le pion Mounstein. Quand c’est de nouveau à lui de jouer : il passe son tour et donne le pion au joueur suivant. Ainsi de suite.</note>
+
+                <p><br></p>
+
+                <div class="list-str">
+                    <div>
+                        <p><a>Ce site web possède la fonction de compteur de tours pour se souvenir à votre place de l’ordre des joueurs.</a> Pratique si vous n’avez pas le pion ou si vous souhaitez une expérience plus visuelle.</p>
+                        <button id="rules_start" class="btn prominent pop-close">Accéder au comptage des tours automatique</button>
+
                     </div>
                 </div>
-            </div>
 
-            <h2>Installation</h2>
-            <div class="list-nb">
-                <div>
-                    <span>1</span>
-                    <p>Détendez la ficelle du <ba>sac de transport</ba> et <ba>mettez-le à plat</ba> pour le transformer en plateau de jeu.</p>
-                </div>
-                <div>
-                    <span>2</span>
-                    <p>Placez la <ba>tuile de départ</ba> n’importe où sur le plateau de jeu.</p>
-                </div>
-                <div>
-                    <span>3</span>
-                    <p>Jouez autour de la tuile de départ.</p>
-                </div>
-                <div>
-                    <span>4</span>
-                    <p>La partie s’arrête quand tous les joueurs ont placé l’intégralité de leurs tuiles.</p>
-                </div>
-            </div>
-
-            <h2>Règles</h2>
-
-            <h3>Placer les tuiles</h3>
-
-            <h3>Interdits</h3>
-
-            <h3>Marquer des points</h3>
-
-
-            <h4>Utilisez vos tuiles contre vos adversaires</h4>
-
-            <h4>Attention à la hauteur</h4>
-
-
-            <h3>Tour par tour équilibré</h3>
-
-            <button id="rules_start" class="btn prominent pop-close">Accéder au comptage des tours automatique</button>
+                <p><br><br></p>
+            </content>
 
         </screen>
 

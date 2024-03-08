@@ -3,9 +3,9 @@
     --bg2: hsl(130, 42.5%, 72.5%);
     --bg3: hsl(130, 70%, 90%);
     --bg4: hsl(130, 45%, 82.5%);
-    --accent1: hsl(215, 73%, 45%);
-    --accent2: #1f4c26;
-    --txt: #000000;
+    --accent1: hsl(225, 52%, 52%);
+    --accent2: hsl(129, 42%, 21%);
+    --accent3: hsl(129, 75%, 5%);
 }
 html {
     font-size: 11px;
@@ -19,7 +19,7 @@ body {
     position: relative;
     max-width: 700px;
     margin: 0 auto;
-    color: var(--txt);
+    color: var(--accent2);
     background-color: var(--bg1);
 }
 body, button, input {
@@ -28,6 +28,10 @@ body, button, input {
     font-weight: 300;
     line-height: 1;
     font-size: 1em;
+}
+
+screen#start, screen#jeu {
+    color: var(--accent3);
 }
 
 
@@ -60,13 +64,14 @@ h2 {
     color: var(--accent2);
 }
 h3 {
-    font-size: 1.175em;
+    font-size: 1.15em;
     color: var(--accent1);
 }
 h4 {
-    font-size: 0.9em;
+    font-size: 1.05em;
     letter-spacing: -0.15px;
     font-style: italic;
+    font-weight: 300;
     color: var(--accent1);
 }
 h1:not(:first-child),
@@ -76,14 +81,21 @@ h4:not(:first-child) {
     margin-top: 2em;
 }
 
-p, span {
-    line-height: 115%;
-}
-p.accented, span.accented, p ba {
+screen#rules h2 {
     color: var(--accent1);
 }
+
+p, span {
+    line-height: 120%;
+}
+p + p {
+    margin-top: 0.3em;
+}
+p.accented, span.accented, p a, p ba {
+    color: var(--accent3);
+}
 p.fill, span.fill, p f {
-    color: var(--txt);
+    color: var(--accent3);
 }
 p.bold, span.bold, p b, p ba {
     font-weight: 400;
@@ -91,25 +103,68 @@ p.bold, span.bold, p b, p ba {
 p.italic, span.italic, p i {
     font-style: italic;
 }
+note {
+    display: block;
+    color: var(--accent3);
+    opacity: 0.65;
+    font-size: 0.9em;
+    font-style: italic;
+    line-height: 125%;
+    padding: 0.75em 0 0.25em;
+}
+note > span:first-child {
+    font-weight: 400;
+    background-color: var(--bg4);
+    padding: 0.15em 0.6em;
+    margin-right: 0.35em;
+    border-radius: 999em;
+}
+note.t-center {
+    margin-top: 1em;
+}
+note.t-center > span:first-child {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.35em;
+}
 
 img {
     display: block;
     width: 100%;
     height: auto;
+    pointer-events: none;
+    user-select: none;
+}
+content > img {
+    margin: 1em 0;
 }
 
 .rel {
     position: relative;
 }
-.grid2x2 {
+
+*[class*="grid-"] {
     display: grid;
     position: relative;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
+    margin: 0.75em 0;
+}
+*[class*="grid-"] img {
+    display: grid;
+    position: relative;
     padding: 0.5em 0;
-    gap: 2em;
+    object-fit: contain;
 }
 
+.grid-2x2 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 2em;
+}
+.grid-2x2 img {
+    aspect-ratio: 1;
+    padding-bottom: 1em;
+}
 /* .grid2x2.sep::before,
 .grid2x2.sep::after {
     content: "";
@@ -129,6 +184,21 @@ img {
     border-left-width: 2px !important;
 } */
 
+.grid-2 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 1em;
+}
+.grid-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 1em;
+}
+.grid-2 img
+.grid-3 img {
+    height: 100%;
+}
+
 .list-nb > div {
     display: flex;
     align-items: start;
@@ -140,7 +210,6 @@ img {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    padding: 0.25em;
     margin-right: 0.75em;
     width: 2em;
     height: 2em;
@@ -149,6 +218,39 @@ img {
     border-radius: 999em;
     background-color: var(--bg4);
 }
+.list-nb.small > div {
+    margin-bottom: 0.65em;
+}
+.list-nb.small > div > span:first-child {
+    width: 1.75em;
+    height: 1.75em;
+    margin-right: 0.65em;
+}
+
+.list-str {
+    margin: 1em 0;
+}
+.list-str > div {
+    box-sizing: border-box;
+    padding: 0.75em;
+    border: var(--accent2) 2px solid;
+}
+.list-str > div:not(:last-child) {
+    margin-bottom: 1em;
+}
+.list-str > div > *:last-child {
+    margin-bottom: 0em;
+}
+.list-str > div > span:first-child {
+    display: inline-block;
+    margin-bottom: 0.75em;
+    font-weight: 400;
+    color: var(--accent3);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-thickness: 2px;
+}
+
 
 
 /* ICONS */
@@ -377,11 +479,24 @@ screen {
         );
     }
 }
+screen#rules {
+    clip-path: polygon(
+        0 0.5%,
+        2.5% 0,
+        97.5% 0,
+        100% 0.5%,
+        100% 99.5%,
+        97.5% 100%,
+        2.5% 100%,
+        0% 99.5%,
+        0% 2.5%
+    );
+}
 screen::after { /*margin bottom scroll*/
     content: "";
     position: absolute;
     width: 100%;
-    height: 5rem;
+    height: 6rem;
     top: 100%;
     left: 0;
     background-color: transparent;
@@ -465,7 +580,7 @@ input + label {
     transition: 0.5s cubic-bezier(0.3, 0.8, 0, 1);
     pointer-events: none;
     user-select: none;
-    color: var(--txt);
+    color: var(--accent3);
     opacity: 0.5;
 }
 input:focus + label,
@@ -571,7 +686,7 @@ input:not(:placeholder-shown) + label {
 }
 
 #jeu_ordre .nombres item.active {
-    color: var(--txt);
+    color: var(--accent3);
 }
 #jeu_ordre .nombres item.active > span {
     border-color: var(--accent1);
@@ -651,16 +766,10 @@ screen#rules {
     opacity: 0.6;
 }
 #r-materiel-grid img {
-    pointer-events: none;
-    user-select: none;
-    object-fit: contain;
-    width: 100%;
-    aspect-ratio: 1;
-    padding-bottom: 1em;
     animation: item-floating 2s ease alternate-reverse infinite backwards,
                fade 0.4s ease reverse backwards;
 }
-#r-materiel-grid > *:nth-child(2) {
+.tuiles-color-spin {
     animation: tuile-colors 14s steps(4) infinite;
 }
 #r-materiel-grid > *:nth-child(1) img {
@@ -694,6 +803,7 @@ screen#rules {
     font-size: 2.25em;
     font-weight: 500;
     letter-spacing: -0.75px;
+    color: var(--accent3);
     transform: rotateZ(10deg);
     pointer-events: none;
 }
