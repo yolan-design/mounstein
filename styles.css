@@ -743,7 +743,7 @@ input:not(:placeholder-shown) + label {
     transform: scale(1.25) rotateZ(var(--j-rotate, 10deg));
 }
 #jeu_ordre .nombres item.active::after {
-    left: 145%;
+    left: 155%;
     opacity: 1;
     transform: translateY(-50%) scale(1);
 }
