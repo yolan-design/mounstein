@@ -123,7 +123,7 @@ note {
     line-height: 125%;
     padding: 0.75em 0 0.25em;
 }
-note > span:first-child {
+note:not(.minimal) > span:first-child {
     font-weight: 400;
     background-color: var(--bg4);
     padding: 0.15em 0.6em;
