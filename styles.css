@@ -144,6 +144,17 @@ img {
     position: relative;
 }
 
+.col-flex-r {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+.col-flex-r > *:not(:last-child) {
+    margin-right: 1em;
+}
+
 *[class*="grid-"] {
     display: grid;
     position: relative;
