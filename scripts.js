@@ -38,7 +38,10 @@ const SCREENS = {
     infos : document.querySelector("screen#infos"),
 }
 function screenChange({toShow = false}) {
-    let screenCurrent = document.querySelectorAll('screen[display="true"]');
+    // remove current screen
+    document.querySelectorAll("screen[display-instant='true']").forEach((sd) => {
+        addEvTrEnd(sd, () => { sd.classList.add("hidden"); }, "opacity", true);
+    })
 
     // clear screens
     document.querySelectorAll("screen").forEach((sd) => {
@@ -276,8 +279,19 @@ jNbInput.addEventListener("input", (event) => {
     jNbValue.textContent = event.target.value;
 });
 
+// SCREENS INIT
 screenChange({toShow : SCREENS.start});
-if(window.location.hash != "#jeu") { screenPop({toShow : SCREENS.rules, logoLarge : false}); } // afficher les règles dès l'ouverture du site (mais pas avec une URL particulière en cas où)
+screenPop({});
+
+// afficher les règles dès l'ouverture du site (mais pas avec une URL particulière en cas où)
+if(window.location.hash != "#jeu") { screenPop({toShow : SCREENS.rules, logoLarge : false}); }
+
+// remove disabled screens
+setTimeout(() => {
+    document.querySelectorAll("screen[display-instant='false'][pop-instant='false']").forEach((popEl) => {
+        popEl.classList.add("hidden");
+    })
+}, 100);
 
 
 //-- INTERACTIONS
