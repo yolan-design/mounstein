@@ -68,12 +68,12 @@ function screenChange({toShow = false}) {
 }
 
 function screenPop({toShow = false, logoLarge = true}) {
-    if (!toShow) {
-        // remove current pop
-        document.querySelectorAll("screen[pop-instant='true']").forEach((popEl) => {
-            addEvTrEnd(popEl, () => { popEl.classList.add("hidden"); }, "opacity", true);
-        })
+    // remove current pop
+    document.querySelectorAll("screen[pop-instant='true']").forEach((popEl) => {
+        addEvTrEnd(popEl, () => { popEl.classList.add("hidden"); }, "opacity", true);
+    })
 
+    if (!toShow) {
         // global off
         document.documentElement.setAttribute("pop", "off");
 
