@@ -34,6 +34,14 @@ screen#start, screen#jeu {
     color: var(--accent3);
 }
 
+@media print {
+    body {
+        max-width: 600px !important;
+    }
+    #r-materiel-grid * {
+        animation: none !important;
+    }
+}
 
 /* RESETS */
 * {
