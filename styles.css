@@ -704,7 +704,7 @@ input:not(:placeholder-shown) + label {
     will-change: border, transform;
 }
 #jeu_ordre .nombres item::after {
-    content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.447 22.447"><polyline style="stroke-width:3px; stroke:rgb(11, 74, 181); fill:transparent;" points="7.664 3.224 16.484 11.224 7.664 19.224" /></svg>');
+    content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.447 22.447"><polyline style="stroke-width:3px; stroke:rgb(69, 101, 196); fill:transparent;" points="7.664 3.224 16.484 11.224 7.664 19.224" /></svg>');
     position: absolute;
     top: 50%;
     left: 80%;
@@ -820,10 +820,10 @@ screen#rules {
 #r-materiel-grid > *:nth-child(2) img {
     animation-delay: 0.8s, 0.3s;
 }
-#r-materiel-grid > *:nth-child(3) img {
+#r-materiel-grid > *:nth-child(5) img {
     animation-delay: 1s, 0.45s;
 }
-#r-materiel-grid > *:nth-child(4) img {
+#r-materiel-grid > *:nth-child(6) img {
     animation-delay: 1.4s, 0.45s;
 }
 @keyframes item-floating {
