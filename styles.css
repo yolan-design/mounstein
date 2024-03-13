@@ -147,6 +147,11 @@ img {
     user-select: none;
 }
 
+.space {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+}
+
 .space-top,
 note.t-center {
     margin-top: 1.25em;
@@ -179,15 +184,14 @@ note.t-center {
 }
 
 *[class*="grid-"] {
-    display: grid;
+    display: inline-grid;
     position: relative;
     margin: 0.75em 0;
 }
 *[class*="grid-"] img {
-    display: grid;
     position: relative;
-    padding: 0.5em 0;
     object-fit: contain;
+    padding: 0.5em 0;
 }
 
 .grid-2x2 {
