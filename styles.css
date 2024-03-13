@@ -117,21 +117,20 @@ p.italic, span.italic, p i {
 note {
     display: block;
     color: var(--accent3);
-    opacity: 0.65;
     font-size: 0.9em;
     font-style: italic;
     line-height: 125%;
     padding: 0.75em 0 0.25em;
 }
-note:not(.minimal) > span:first-child {
+note span {
+    opacity: 0.65;
+}
+note:not(.minimal) > span:first-child:not(:last-child) {
     font-weight: 400;
     background-color: var(--bg4);
     padding: 0.15em 0.6em;
     margin-right: 0.35em;
     border-radius: 999em;
-}
-note.t-center {
-    margin-top: 1em;
 }
 note.t-center > span:first-child {
     display: block;
@@ -146,6 +145,14 @@ img {
     height: auto;
     pointer-events: none;
     user-select: none;
+}
+
+.space-top,
+note.t-center {
+    margin-top: 1.25em;
+}
+.col-flex-r.space-top note.t-center {
+    margin-top: 0 !important;
 }
 
 .rel {
@@ -164,6 +171,11 @@ img {
 }
 .col-flex-r.equal > * {
     flex: 1;
+}
+
+*[class*="grid-"].align-center,
+.col-flex-r.align-center {
+    align-items: center;
 }
 
 *[class*="grid-"] {
